@@ -156,7 +156,6 @@ def main(number_of_top_kmers):
   
   for i in range (12):
     print(np.size(index_lists[i]))
-  print("_______________________|------------------------|________________________",flush=True)
 
   kmer_selector(np.size(file_names),index_lists,number_of_top_kmers)
 
