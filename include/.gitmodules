@@ -1,0 +1,6 @@
+[submodule "SBWT-kmer-counters"]
+	path = SBWT-kmer-counters
+	url = https://github.com/MSEali/SBWT-kmer-counters.git
+[submodule "enaBrowserTools"]
+	path = enaBrowserTools
+	url = https://github.com/MSEali/enaBrowserTools.git
