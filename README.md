@@ -1,5 +1,5 @@
 # MTB-plus-plus
-This is the software developed to predict antimicrobial resistance (AMR) in MTB bacteria using machine learning for 13 groups of antibiotics including: Amikacin, Bedaquiline, Clofazimine, Delamanid, Ethambutol, Ethionamide Isoniazid, Kanamycin, Levofloxacin, Linezolid, Moxifloxacin, Rifampicin, Rifabutin; and 3 antibiotic families including RIA, AMG, Fluoroquinolone(FQS).
+This is the software developed to predict antimicrobial resistance (AMR) in MTB bacteria using machine learning for 13 groups of antibiotics including Amikacin, Bedaquiline, Clofazimine, Delamanid, Ethambutol, Ethionamide Isoniazid, Kanamycin, Levofloxacin, Linezolid, Moxifloxacin, Rifampicin, Rifabutin; and 3 antibiotic families including Rifampin(RIA), Aminoglycosides(AMG), Fluoroquinolone(FQS).
 
 
 ## First step: 
