@@ -3,5 +3,5 @@ This is the software developed to predict antimicrobial resistance (AMR) in MTB 
 
 
 ## First step: 
-Downloading the raw data. The project numbers used to download the data are accessible here [https://github.com/M-Serajian/enaBrowserTools/blob/c9ed1a39510bb976079177f2726f0a0ec9cf1275/Projects.txt]. 
+Downloading the raw data. The project numbers used to download the data are accessible here[https://github.com/M-Serajian/enaBrowserTools/blob/c9ed1a39510bb976079177f2726f0a0ec9cf1275/Projects.txt]. 
 
