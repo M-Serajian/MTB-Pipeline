@@ -17,8 +17,6 @@ Chi_score_addresses_for_each_drug=sys.argv[6]
 Phenotypes_address=sys.argv[7]
 
 
-
-
 # Loading Phenotypes
 df=pd.read_csv(Phenotypes_address)
 print("Columns in the CSV file are:",flush=True)
