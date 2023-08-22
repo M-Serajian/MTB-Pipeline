@@ -2,5 +2,16 @@ This code is designed to choose the top Kmers from each separate file of the fea
 
 # Usage
 ```bash
-python Choosing_Most_Significant_Kmers.py  $Name_of_Antibiotic Number_of_Top_Kmers Number_of_samples Kmers_address Top_kmers_for_each_drug_address Chi_score_addresses_for_each_drug Phenotypes_address
+python Choosing_Most_Significant_Kmers.py  
+
+options:
+  -h, --help  show this help message and exit
+  -1 ARG1     Drug name
+  -2 ARG2     Number of significant Kmers to be
+              choosed
+  -3 ARG3     Number of samples (fasta files)
+  -4 ARG4     Address to the Kmers stored
+  -5 ARG5     Desierd directory for the outputs
+  -6 ARG6     Address to the Chi-square test scores
+  -7 ARG7     Address to the phenotypes
 ```

@@ -6,13 +6,26 @@ import sys
 from   sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 
+
+
+import argparse
+parser = argparse.ArgumentParser(description="Process arguments")
+parser.add_argument('-1', dest='arg1', type=str, required=True, help="Drug name")
+parser.add_argument('-2', dest='arg2', type=str, required=True, help="Number of significant Kmers to be choosed")
+parser.add_argument('-3', dest='arg3', type=str, required=True, help="Number of samples (fasta files)")
+parser.add_argument('-4', dest='arg4', type=str, required=True, help="Address to the Kmers stored")
+parser.add_argument('-5', dest='arg5', type=str, required=True, help="Desierd directory for the outputs")
+parser.add_argument('-6', dest='arg6', type=str, required=True, help="Address to the Chi-square test scores")
+parser.add_argument('-7', dest='arg7', type=str, required=True, help="Address to the phenotypes")
+args = parser.parse_args()
+
 # Argument 1: drug name
 # Argument 2: Top kmers number
 drug_name_group=sys.argv[1]
 Number_of_Top_Kmers=int(sys.argv[2])
 Number_of_samples=int(sys.argv[3])
 Kmers_address=sys.argv[4] 
-Top_kmers_for_each_drug_address=sys.argv[5] #with / at its end
+Top_kmers_for_each_drug_address=sys.argv[5] 
 Chi_score_addresses_for_each_drug=sys.argv[6]
 Phenotypes_address=sys.argv[7]
 
