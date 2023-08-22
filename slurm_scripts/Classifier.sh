@@ -60,14 +60,15 @@ cat << EOF > ./temp/$job_name.sh
 #SBATCH --output=temp/logs/"$Main_job_action_name"_%A_%a_$drug_name_group.log
 
 ml python3
-chmod a+x classifier.py       
+chmod a+x projects/MTB-plus-plus/src/Classifier/classifier.py       
 
 
 mkdir -p $Results_address
 mkdir -p $Saving_Model_Address
 
 /usr/bin/time -f "Time: %U user, %S system, %e real\nMemory: %M" \
-                ./classifier.py ${drug_name} $Top_kmers_for_each_drug_address \
+                 python projects/MTB-plus-plus/src/Classifier/classifier.py ${drug_name} \
+                 $Top_kmers_for_each_drug_address \
                  $Results_address $Cross_Validation $train_index_address $test_index_address\
                  $Saving_Model_Address
 
