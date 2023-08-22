@@ -8,6 +8,35 @@ import copy
 # This function is defined to just calculate the Chi-score test on the 
 # unambiguous samples
 
+
+
+import argparse
+parser = argparse.ArgumentParser(description="Process arguments")
+parser.add_argument('-1', dest='arg1', type=str, required=True, help="file_number")
+parser.add_argument('-2', dest='arg2', type=str, required=True, help="Drug name")
+parser.add_argument('-3', dest='arg3', type=str, required=True, help="Number of samples (fasta files)")
+parser.add_argument('-4', dest='arg4', type=str, required=True, help="Address to the Kmers stored")
+parser.add_argument('-5', dest='arg5', type=str, required=True, help="Desierd directory for the outputs")
+parser.add_argument('-6', dest='arg6', type=str, required=True, help="Address to the index of training set")
+parser.add_argument('-7', dest='arg7', type=str, required=True, help="Address to the index of test set")
+parser.add_argument('-8', dest='arg8', type=str, required=True, help="The address to the phenotypes")
+args = parser.parse_args()
+
+
+i=str(args.arg1) #file number, we considered 12 files
+drug_name_group=args.arg2
+Number_of_samples=int(args.arg3)
+Kmers_address=args.arg4
+Chi_score_addresses_for_each_drug=args.arg5
+train_index_address=args.arg6
+test_index_address=args.arg7
+The_address_to_phenotypes=args.art8
+
+df=pd.read_csv(The_address_to_phenotypes)
+
+# Separating test and train data
+# Chi-Score should only be performed on the train data
+
 def get_non_nan_indices(array):
     non_nan_indices = []
     for i in range(len(array)):
@@ -16,31 +45,13 @@ def get_non_nan_indices(array):
     return non_nan_indices
 
 
-
-i=str(sys.argv[1]) #file number, we considered 12 files
-drug_name_group=sys.argv[2]
-#Number_of_Top_Kmers=int(sys.argv[3])
-Number_of_samples=int(sys.argv[3])
-Kmers_address=sys.argv[4]
-Chi_score_addresses_for_each_drug=sys.argv[5]
-train_index_address=sys.argv[6]
-test_index_address=sys.argv[7]
-The_address_to_phenotypes=sys.argv[8]
-#df=pd.read_csv("6224_Targets_NA_3_letters.csv")
-df=pd.read_csv(The_address_to_phenotypes)
-
-# Separating test and train data
-# Chi-Score should only be performed on the train data
-
-
-
 #--------------------------------------------------#
 
 train_index=np.load(train_index_address)
 test_index =np.load(test_index_address)
 
 # Loading Targets
-print("Columns in the CSV file are:",flush=True)
+print("Columns in the CSV file are:")
 print(df.columns,flush=True)
 # Which drug????
 

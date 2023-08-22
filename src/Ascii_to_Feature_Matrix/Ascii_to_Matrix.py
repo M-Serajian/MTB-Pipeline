@@ -3,43 +3,29 @@ import time
 import numpy as np
 import sys
 
-file_number=int(sys.argv[1])
-Color_matrix_address=sys.argv[3]
-Npy_files_address=sys.argv[4]
-Number_of_Samples=int(sys.argv[2])
-Number_of_kmers_in_file=int(sys.argv[5])
-min_Filter=int(sys.argv[6])
-max_Filter=int(sys.argv[7])
 
 
 
+import argparse
+parser = argparse.ArgumentParser(description="Process arguments")
+parser.add_argument('-1', dest='arg1', type=str, required=True, help="file_number")
+parser.add_argument('-2', dest='arg2', type=str, required=True, help="Number of Samples (Fasta files)")
+parser.add_argument('-3', dest='arg3', type=str, required=True, help="Color matrix address (output of SBWT)")
+parser.add_argument('-4', dest='arg4', type=str, required=True, help="Desired directory to save .npy files")
+parser.add_argument('-5', dest='arg5', type=str, required=True, help="Number of kmers in each file")
+parser.add_argument('-6', dest='arg6', type=str, required=True, help="min number of occurance for filteration")
+parser.add_argument('-7', dest='arg7', type=str, required=True, help="max number of occurance for filteration")
+args = parser.parse_args()
 
-"""  Old version without the kmer index 
 
-def line_parser (string,number_of_samples):
-    list1 = []
-    list2 = []
-    list3 = []
+file_number=int(args.arg1)
+Number_of_Samples=int(args.arg2)
+Color_matrix_address=args.arg3
+Npy_files_address=args.arg4
+Number_of_kmers_in_file=int(args.arg5)
+min_Filter=int(args.arg6)
+max_Filter=int(args.arg7)
 
-    for i in range(len(string)):
-        if string[i] == "(":
-            list1.append(i)
-    occurance_counter=len(list1)
-    for i in range(len(string)):
-        if string[i] == ":":
-            list2.append(i)
-    
-    for i in range(len(string)):
-        if string[i] == ")":
-            list3.append(i)
-
-    binary_output = [0] * number_of_samples
-    for i in range (len(list1)):
-        a = int(string[list1[i] + 1:list2[i]])
-        binary_output[a]= int(string[list2[i] + 1:list3[i]])
-
-    return binary_output, occurance_counter
-"""
 
 # Kmer index is added now, its the first element (index zero)
 def line_parser (string,number_of_samples):
