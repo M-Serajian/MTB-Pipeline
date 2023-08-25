@@ -3,14 +3,14 @@ This is the software developed to predict antimicrobial resistance (AMR) in MTB 
 
 
 ## First step: 
-Download the raw data. The data used in this study are available at European Nucleotide Archive (ENA). The project numbers used to download the data are accessible [here](https://github.com/M-Serajian/enaBrowserTools/blob/c9ed1a39510bb976079177f2726f0a0ec9cf1275/Projects.txt).
+Download the raw data. The data used in this study are available at the European Nucleotide Archive (ENA). The project numbers used to download the data are accessible [here](https://github.com/M-Serajian/enaBrowserTools/blob/c9ed1a39510bb976079177f2726f0a0ec9cf1275/Projects.txt).
 
 
 ## Second step: 
 Assemble FASTQ data using [SPAdes](https://github.com/ablab/spades).
 
 ## Third step: 
-Extract the phenotypes from the ENA data and matching the identifier numbers. 
+Extract the phenotypes from the ENA data and match the identifier numbers. 
 
 ## Fourth step: 
 Extract Kmer  using [SBWT-kmer-counters](https://github.com/jnalanko/SBWT-kmer-counters).
@@ -22,7 +22,7 @@ Transform the output of the previous section to a feature matrix [here](https://
 Perform Chi-squared test to rank kmers based on their significance [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Chi-Square-Kmer-Ranking).
 
 ## Seventh step: 
-Select top kmers for each antibiotic for training a classifier [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Kmer_Select).
+Select the top kmers for each antibiotic for training a classifier [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Kmer_Select).
 
-## Eightth step: 
-Train classifiers (Lopgistic Regression and Random Forest) [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Classifier).
+## Eighth step: 
+Train classifiers (Logistic Regression and Random Forest) [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Classifier).
