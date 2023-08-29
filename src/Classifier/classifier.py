@@ -5,20 +5,15 @@ import numpy as np
 import pandas as pd
 import math
 import matplotlib.pyplot as plt
-
-
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
-from sklearn import metrics
 from sklearn.metrics import f1_score
-from sklearn.metrics import confusion_matrix
-from sklearn.datasets import load_iris
-
-
+import numpy as np
+from sklearn.model_selection import cross_val_predict, cross_val_score
+from sklearn.metrics import f1_score, roc_auc_score, recall_score, accuracy_score
+import numpy as np
 import pickle
-
 
 
 
@@ -41,6 +36,9 @@ Cross_Validation=sys.argv[4]
 train_index_address=sys.argv[5]
 test_index_address=sys.argv[6]
 model_address=sys.argv[7]
+alpha_lasso_parameter=sys.argv[8]
+RF_trees=sys.argv[9]
+
 
 train_index=np.load(train_index_address)
 test_index=np.load(test_index_address)
@@ -113,7 +111,9 @@ phenotype=target[:,group]
 
 # Loading data
 data=np.load(Top_kmers_address+ drug_name+ "/Classifer_data_524288.npy")
+data=data[:,0:65536-1]
 print("The data is loaded",flush=True)
+print("The shape of the used data is:{}".format(np.shape(data)))
 
 # loading clade
 """
@@ -155,14 +155,16 @@ plt.xlabel("False Positive Rate",fontsize=16)
 plt.ylabel("True Positive Rate",fontsize=16)
 #plt.title(drug_names_abbreviation,fontsize=22)
 
-header_csv=["Model", "Kmers used","Learning time (S)","AUC(%)","ACC(%)","Sensitivity(%)","Specificity(%)","F-1 Score"]
+header_csv=["Model", "Kmers used","AUC(%)","mean_f1(%)","std_f1(%)","mean_recall(%)","mean_accuracy","mean_sensitivity","mean_specificity"]
+
 csv_file=[]
-base=4 # 1 kmers, base kmers, base^2 kmers, base^3 kmers , ...
+base=2 # 1 kmers, base kmers, base^2 kmers, base^3 kmers , ...
 list_kmers=[1* pow(base,i) for i in range(math.ceil(math.log(((np.size(X_train,1))/1),base)))]
 #list_kmers.append(np.size(X_train,1))
 
-colors = ['#006400', '#228B22', '#808000', '#00FF00', '#00FF7F',
-          '#2E8B57', '#98FB98', '#7FFF00', '#98FB98', '#50C878']
+
+
+
 
 color_counter=0
 #Logistic Regression
@@ -172,7 +174,7 @@ if (LR==1):
   for i in list_kmers :
 
     if ( 1000<i):
-      model=LogisticRegression(penalty='l1', solver='liblinear', max_iter=2000)
+      model=LogisticRegression(penalty='l1', solver='liblinear', max_iter=2000,C=1/alpha_lasso_parameter)
       model_name="LR Lasso"
     else: 
       model=LogisticRegression(max_iter=2000)
@@ -181,47 +183,65 @@ if (LR==1):
     print("{} model with {} Kmers".format(model_name,i),flush=True) 
 
     X_train_selected= X_train[:,0:i]
-    X_test_selected=X_test[:,0:i]
-    t1=time.time()
-    clf = model.fit(X_train_selected, y_train)
-    t2=time.time()
-
-    #Saving the model
-    saving_model_address=model_address+'LR_{}_{}.pkl'.format(drug_name,i)
-
-    with open(saving_model_address, 'wb') as f:
-        pickle.dump(clf, f)
+    #X_test_selected=X_test[:,0:i]
     
 
-    y_pred = clf.predict(X_test_selected)
-    #print("For i= {} the ACC and Pr. and Rec. are :".format(i))
-    accuracy = accuracy_score(y_test, y_pred)
-    conf = confusion_matrix(y_test, y_pred)
-
-    tn, fp, fn, tp=conf.ravel()
-    specificity= tn / (tn + fp)
-    sensitivity= tp / (tp + fn)
-
-    f1 = f1_score(y_test, y_pred)
-
-    fpr, tpr, thresholds = metrics.roc_curve(y_test,\
-                          model.predict_proba(X_test_selected)[:,1])
-    auc = metrics.roc_auc_score(y_test,model.predict(X_test_selected))
-    plt.plot(fpr, tpr,label= model_name+ " {} Kmers "\
-            .format(i), color=colors[color_counter])
-    color_counter=color_counter+1
-    
-    csv_file.append([model_name, i, round(t2-t1,2),\
-                    round(100*auc,2), round(100*accuracy,2),\
-                    round(100*sensitivity,2), round(100*specificity,2),\
-                    round(100*f1,2)])
+    # Generate some example data (replace this with your own dataset)
 
 
+    # Perform 5-fold cross-validation with probability estimates
+    num_folds = 5
+
+    # Initialize lists to store metric scores for each fold
+    auc_scores = []
+    f1_scores = []
+    recall_scores = []
+    accuracy_scores = []
+    sensitivity_scores = []
+    specificity_scores = []
+
+    for fold in range(num_folds):
+        y_scores = cross_val_predict(model, X_train_selected, y_train, cv=num_folds, method='predict_proba')
+        y_pred = np.argmax(y_scores, axis=1)
+        
+        # Calculate confusion matrix
+        true_positives = np.sum((y_train == 1) & (y_pred == 1))
+        true_negatives = np.sum((y_train == 0) & (y_pred == 0))
+        false_positives = np.sum((y_train == 0) & (y_pred == 1))
+        false_negatives = np.sum((y_train == 1) & (y_pred == 0))
+        
+        # Calculate metrics
+        auc_scores.append(roc_auc_score(y_train, y_scores[:, 1]))
+        f1_scores.append(f1_score(y_train, y_pred))
+        recall_scores.append(recall_score(y_train, y_pred))
+        accuracy_scores.append(accuracy_score(y_train, y_pred))
+        sensitivity_scores.append(true_positives / (true_positives + false_negatives))
+        specificity_scores.append(true_negatives / (true_negatives + false_positives))
+
+    # Calculate mean and standard deviation for each metric
+    mean_auc = np.mean(auc_scores)
+    std_auc = np.std(auc_scores)
+    mean_f1 = np.mean(f1_scores)
+    std_f1 = np.std(100*f1_scores)
+    mean_recall = np.mean(recall_scores)
+    std_recall = np.std(recall_scores)
+    mean_accuracy = np.mean(accuracy_scores)
+    std_accuracy = np.std(accuracy_scores)
+    mean_sensitivity = np.mean(sensitivity_scores)
+    std_sensitivity = np.std(sensitivity_scores)
+    mean_specificity = np.mean(specificity_scores)
+    std_specificity = np.std(specificity_scores)
 
 
-colors = ['#8B0000', '#800000', '#A52A2A', '#B22222', '#DC143C',
-          '#FF0000', '#FF6347', '#FF7F50', '#FA8072', '#FFA07A']
-color_counter=0
+
+    csv_file.append([model_name, i, round(100*mean_auc,2),\
+                    round(100*mean_f1,2), round(std_f1,4),\
+                    round(100*mean_recall,2), round(100*mean_accuracy,2),\
+                    round(100*mean_sensitivity,2),round(100*mean_specificity,2)])
+
+
+
+
 
 # Random forest (RF)
 RF=1
@@ -231,119 +251,62 @@ if (RF==1):
   for i in list_kmers :
     model_name="RF"
     print("{} model with {} Kmers".format(model_name,i),flush=True) 
-    model = RandomForestClassifier(max_depth=10, random_state=10)
+    model = RandomForestClassifier(max_depth=10, random_state=10,n_estimators=RF_trees)
 
     X_train_selected= X_train[:,0:i]
     X_test_selected=X_test[:,0:i]
-    t1=time.time()
-    clf = model.fit(X_train_selected, y_train)
-    t2=time.time()
-
-    saving_model_address=model_address+'RF_{}_{}.pkl'.format(drug_name,i)
-
-    with open(saving_model_address, 'wb') as f:
-        pickle.dump(clf, f)
-
-    y_pred = clf.predict(X_test_selected)
-    #print("For i= {} the ACC and Pr. and Rec. are :".format(i))
-    accuracy = accuracy_score(y_test, y_pred)
-    conf = confusion_matrix(y_test, y_pred)
-
-    tn, fp, fn, tp=conf.ravel()
-    specificity= tn / (tn + fp)
-    sensitivity= tp / (tp + fn)
-
-    f1 = f1_score(y_test, y_pred)
-
-    fpr, tpr, thresholds = metrics.roc_curve(y_test,\
-                          model.predict_proba(X_test_selected)[:,1])
-    auc = metrics.roc_auc_score(y_test,model.predict(X_test_selected))
-    plt.plot(fpr, tpr,label= model_name+ " {} Kmers "\
-            .format(i), color=colors[color_counter])
-    color_counter=color_counter+1
-    csv_file.append([model_name, i, round(t2-t1,2),\
-                    round(100*auc,2), round(100*accuracy,2),\
-                    round(100*sensitivity,2), round(100*specificity,2),\
-                    round(100*f1,2)])
-
-
-SVM_RBF=0
-
-if (SVM_RBF==1):
-   
-  for i in list_kmers :
-
-    X_train_selected= X_train[:,0:i]
-    X_test_selected=X_test[:,0:i]
-    """
-    if ( 1000<i):
-      model_name="SVM RBF PCA"
-      print("{} model with {} Kmers and Top 256 Components ".format(model_name,i),flush=True) 
-      pca = PCA(n_components=256)
-      pca.fit(X_train_selected)
-
-      # Transform the training and test data
-      X_train_selected = pca.transform(X_train_selected)
-      X_test_selected = pca.transform(X_test_selected)
-            
-    else: 
-      model_name="SVM RBF"
-      print("{} model with {} Kmers".format(model_name,i),flush=True) 
-    """
-    print("{} model with {} Kmers".format(model_name,i),flush=True)
-    model_name="SVM RBF"
-    model=SVC(kernel='rbf',max_iter=1000,probability=True)
-
-    t1=time.time()
-    clf = model.fit(X_train_selected, y_train)
-    t2=time.time()
-
-    y_pred = clf.predict(X_test_selected)
-    #print("For i= {} the ACC and Pr. and Rec. are :".format(i))
-    accuracy = accuracy_score(y_test, y_pred)
-    conf = confusion_matrix(y_test, y_pred)
-
-    tn, fp, fn, tp=conf.ravel()
-    specificity= tn / (tn + fp)
-    sensitivity= tp / (tp + fn)
-
-    f1 = f1_score(y_test, y_pred)
-
-    fpr, tpr, thresholds = metrics.roc_curve(y_test,\
-                          model.predict_proba(X_test_selected)[:,1])
-    auc = metrics.roc_auc_score(y_test,model.predict(X_test_selected))
-
-    plt.plot(fpr, tpr,label= model_name+ " {} Kmers "\
-            .format(i), color=colors[color_counter])
     
-    color_counter=color_counter+1
-    csv_file.append([model_name, i, round(t2-t1,2),\
-                    round(100*auc,2), round(100*accuracy,2),\
-                    round(100*sensitivity,2), round(100*specificity,2),\
-                    round(100*f1,2)])
+    # Perform 5-fold cross-validation with probability estimates
+    num_folds = 5
 
-   
+    # Initialize lists to store metric scores for each fold
+    auc_scores = []
+    f1_scores = []
+    recall_scores = []
+    accuracy_scores = []
+    sensitivity_scores = []
+    specificity_scores = []
 
-   
+    for fold in range(num_folds):
+        y_scores = cross_val_predict(model, X_train_selected, y_train, cv=num_folds, method='predict_proba')
+        y_pred = np.argmax(y_scores, axis=1)
+        
+        # Calculate confusion matrix
+        true_positives = np.sum((y_train == 1) & (y_pred == 1))
+        true_negatives = np.sum((y_train == 0) & (y_pred == 0))
+        false_positives = np.sum((y_train == 0) & (y_pred == 1))
+        false_negatives = np.sum((y_train == 1) & (y_pred == 0))
+        
+        # Calculate metrics
+        auc_scores.append(roc_auc_score(y_train, y_scores[:, 1]))
+        f1_scores.append(f1_score(y_train, y_pred))
+        recall_scores.append(recall_score(y_train, y_pred))
+        accuracy_scores.append(accuracy_score(y_train, y_pred))
+        sensitivity_scores.append(true_positives / (true_positives + false_negatives))
+        specificity_scores.append(true_negatives / (true_negatives + false_positives))
+
+    # Calculate mean and standard deviation for each metric
+    mean_auc = np.mean(auc_scores)
+    std_auc = np.std(auc_scores)
+    mean_f1 = np.mean(f1_scores)
+    std_f1 = np.std(100*f1_scores)
+    mean_recall = np.mean(recall_scores)
+    std_recall = np.std(recall_scores)
+    mean_accuracy = np.mean(accuracy_scores)
+    std_accuracy = np.std(accuracy_scores)
+    mean_sensitivity = np.mean(sensitivity_scores)
+    std_sensitivity = np.std(sensitivity_scores)
+    mean_specificity = np.mean(specificity_scores)
+    std_specificity = np.std(specificity_scores)
 
 
 
+    csv_file.append([model_name, i, round(100*mean_auc,2),\
+                round(100*mean_f1,2), round(std_f1,4),\
+                round(100*mean_recall,2), round(100*mean_accuracy,2),\
+                round(100*mean_sensitivity,2),round(100*mean_specificity,2)])
 
-plt.rcParams["figure.figsize"] = [8, 8]
-plt.rcParams["figure.autolayout"] = True
-plt.rcParams["figure.dpi"] = 350
-plt.xlim(0,1)
-plt.ylim(0,1)
-plt.plot([0, 1], [0, 1], "k--", label="(AUC = 0.5)")
-#plt.legend(loc='center', bbox_to_anchor=(1.4, 0.5),fontsize=10)
-#plt.legend(bbox_to_anchor=(1.3, 0.8),loc='upper left')
-#plt.subplots_adjust(right=0.6)
 
-#plt.subplots_adjust(left=0, right=1, top=1.1, bottom=0)
-plt.xticks(fontsize=14)  # Adjust the font size for x-axis tick labels
-plt.yticks(fontsize=14)  # Adjust the font size for y-axis tick labels
-plt.savefig(Results_address+drug_names_abbreviation+'_CV{}_ROC.jpg'.format(Cross_Validation),bbox_inches='tight')
-plt.show()
 
 
 pd.DataFrame(csv_file).to_csv(Results_address+drug_names_abbreviation+\
@@ -351,8 +314,6 @@ pd.DataFrame(csv_file).to_csv(Results_address+drug_names_abbreviation+\
                               header= header_csv)
 
 
-print("Classification for {} finished Successfully!".\
-      format(drug_name))
 
 
 

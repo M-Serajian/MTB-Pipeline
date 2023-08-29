@@ -11,7 +11,7 @@ Needed_memory=80gb
 Process_time=60:00:00
 Array_job_list=1-1 # single job: For each Classifer, We considered one Job
 Main_job_action_name=Classifer
-email=ms.slurm@gmail.edu
+email=my_slurm_2023_reports@gmail.com
 
 #____________________________________________#
 drugs=("Amikacin" \
@@ -46,6 +46,8 @@ do
     test_index_address="/blue/boucher/share/Deep_TB_Ali/Final_TB/test_train_index/Cross_validation_$Cross_Validation/test_index_CV$Cross_Validation.npy"
     Results_address="/home/m.serajian/Final_TB/Deep_TB/classifier/Cross_Validation_"$Cross_Validation"_results/"
     Saving_Model_Address="/blue/boucher/share/Deep_TB_Ali/Final_TB/Saved_classifier/Cross_Validation_"$Cross_Validation"/"
+    alpha_lasso_parameter=1
+    RF_trees=100
 
     # Generate the Slurm script dynamically using a heredoc
 cat << EOF > ./temp/$job_name.sh
