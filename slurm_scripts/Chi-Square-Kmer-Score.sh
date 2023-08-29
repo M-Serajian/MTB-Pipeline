@@ -82,12 +82,12 @@ cat << EOF > ./temp/$job_name.sh
 #SBATCH --output=temp/logs/"$Main_job_action_name"_%A_%a_$drug_name_group.log
 
 ml python3
-chmod a+x projects/MTB-plus-plus/src/Chi-Square-Kmer-ranking/Chi-Square-Kmer-ranking.py       
+chmod a+x projects/MTB-plus-plus/src/Chi-Square-Kmer-Score/Chi-Square-Kmer-ranking.py       
 
 
 mkdir -p $Chi_score_addresses_for_each_drug$drug_name_group
 
-python projects/MTB-plus-plus/src/Chi-Square-Kmer-ranking/Chi-Square-Kmer-ranking.py \${SLURM_ARRAY_TASK_ID} \\
+python projects/MTB-plus-plus/src/Chi-Square-Kmer-Score/Chi-Square-Kmer-ranking.py \${SLURM_ARRAY_TASK_ID} \\
                                 $drug_name_group\\
                                 $Number_of_samples\\
                                 $Kmers_address\\

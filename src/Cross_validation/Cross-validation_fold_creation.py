@@ -29,7 +29,7 @@ def main():
     
     for i in range (number_of_folds):
         np.save(saving_address+"indexes_of_fold_{}.npy".\
-            format(i))
+            format(i),folds[i])
     
 
 if __name__ == "__main__":
