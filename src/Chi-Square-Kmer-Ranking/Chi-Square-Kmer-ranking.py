@@ -31,7 +31,6 @@ Chi_score_addresses_for_each_drug=args.arg5
 train_index_address=args.arg6
 test_index_address=args.arg7
 The_address_to_phenotypes=args.art8
-
 df=pd.read_csv(The_address_to_phenotypes)
 
 # Separating test and train data
