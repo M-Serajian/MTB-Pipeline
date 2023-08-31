@@ -23,8 +23,9 @@ def logical_or_with_nan(a, b):
 
 def main():
     # read csv data
-    df1 = pd.read_excel('ERR_files.xlsx')
-    df2 = pd.read_excel('Json.xlsx')
+    
+    df1 = pd.read_excel('projects/MTB-plus-plus/Data/ERR_files.xlsx')
+    df2 = pd.read_excel('projects/MTB-plus-plus/Data/Json.xlsx')
 
     # Merging the 2 dataframes based on the RUN numbers
     inner_join = pd.merge(df1, df2, on ='ERR', how ='inner')
@@ -54,19 +55,7 @@ def main():
         df = pd.DataFrame(imp.fit_transform(df), columns=df.columns)
 
     #Making targets integer
-    """
-    for i in phenotypes:
-        df[i]=df[i].astype(int)
-    """
-
-    ''' RIFBB , .... 
-    df['RIFBB'] = df.apply(lambda row: logical_or_with_nan(row['RIF_BINARY_PHENOTYPE'], row['RFB_BINARY_PHENOTYPE']), axis=1)
-    df['Ami_Kan'] = df.apply(lambda row: logical_or_with_nan(row['AMI_BINARY_PHENOTYPE'], row['KAN_BINARY_PHENOTYPE']), axis=1)
-    df["mid"]= df.apply(lambda row: logical_or_with_nan(row['LEV_BINARY_PHENOTYPE'], row['MXF_BINARY_PHENOTYPE']), axis=1)
-    df["Fluoroquinolone"]= df.apply(lambda row: logical_or_with_nan(row["mid"], row['CFZ_BINARY_PHENOTYPE']), axis=1)
-    df = df.drop("mid", axis=1)
-    '''
-    
+  
     # New Abbreviations
     df['RIA'] = df.apply(lambda row: logical_or_with_nan(row['RIF_BINARY_PHENOTYPE'], row['RFB_BINARY_PHENOTYPE']), axis=1)
     df['AMG'] = df.apply(lambda row: logical_or_with_nan(row['AMI_BINARY_PHENOTYPE'], row['KAN_BINARY_PHENOTYPE']), axis=1)
