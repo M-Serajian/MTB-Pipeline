@@ -1,5 +1,5 @@
 This code is designed to train a classifier based on the data processed in the previous [step](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Kmer_Select). Two types of basic classifiers are designed, Logistic regression (LR) and Random Forest (RF).
-
+```bash
 Usage: 
   -h,--help  show this help message and exit
   -1 ARG1     Drug name group
@@ -13,3 +13,4 @@ Usage:
   -8 ARG8     Alpha lasso parameter for LR
   -9 ARG9     Number of RF trees
   -10 ARG10   Phenotypes address
+```
