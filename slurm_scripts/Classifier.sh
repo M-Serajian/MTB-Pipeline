@@ -40,14 +40,15 @@ for ((i=0; i<=15; i++))
 do
     job_name="Classifier_"${drugs[i]}
     drug_name=${drugs[i]}
-
     Top_kmers_for_each_drug_address=/blue/boucher/share/Deep_TB_Ali/Final_TB/Top_kmers_for_each_drug/Cross_validation_$Cross_Validation/
-    train_index_address="/blue/boucher/share/Deep_TB_Ali/Final_TB/test_train_index/Cross_validation_$Cross_Validation/train_index_CV$Cross_Validation.npy"
-    test_index_address="/blue/boucher/share/Deep_TB_Ali/Final_TB/test_train_index/Cross_validation_$Cross_Validation/test_index_CV$Cross_Validation.npy"
     Results_address="/home/m.serajian/Final_TB/Deep_TB/classifier/Cross_Validation_"$Cross_Validation"_results/"
     Saving_Model_Address="/blue/boucher/share/Deep_TB_Ali/Final_TB/Saved_classifier/Cross_Validation_"$Cross_Validation"/"
-    alpha_lasso_parameter=1
-    RF_trees=100
+    Cross_Validation_folds=$Cross_Validation #Five fold cross validation
+    Cross_Validation_index=3
+    Cross_validation_indexes_address="/blue/boucher/share/Deep_TB_Ali/Final_TB/Cross_validation_folds_indexes"
+    Alpha_lasso_parameter=1
+    RF_trees=200
+    Phenotype_address="/Projects/MTB-plus-plus/src/Classifier"
 
     # Generate the Slurm script dynamically using a heredoc
 cat << EOF > ./temp/$job_name.sh
@@ -68,11 +69,12 @@ chmod a+x projects/MTB-plus-plus/src/Classifier/classifier.py
 mkdir -p $Results_address
 mkdir -p $Saving_Model_Address
 
-/usr/bin/time -f "Time: %U user, %S system, %e real\nMemory: %M" \
-                 python projects/MTB-plus-plus/src/Classifier/classifier.py ${drug_name} \
+python projects/MTB-plus-plus/src/Classifier/Classifier.py ${drug_name} \
                  $Top_kmers_for_each_drug_address \
-                 $Results_address $Cross_Validation $train_index_address $test_index_address\
-                 $Saving_Model_Address
+                 $Results_address $Cross_Validation_folds \
+                 $Cross_Validation_index $Cross_validation_indexes_address\
+                 $Saving_Model_Address $Alpha_lasso_parameter\
+                 $RF_trees $Phenotype_address
 
 EOF
 
