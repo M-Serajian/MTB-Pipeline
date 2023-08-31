@@ -14,7 +14,7 @@ from sklearn.model_selection import cross_val_predict, cross_val_score
 from sklearn.metrics import f1_score, roc_auc_score, recall_score, accuracy_score
 import numpy as np
 import pickle
-
+import argparse
 
 
 
@@ -26,24 +26,52 @@ def get_non_nan_indices(array):
     return non_nan_indices
 
 
+
+parser = argparse.ArgumentParser(description="Process arguments")
+parser.add_argument('-1', dest='arg1', type=str, required=True, help="Drug name group")
+parser.add_argument('-2', dest='arg2', type=str, required=True, help="The address to the top kmers selected for classification on previous step")
+parser.add_argument('-3', dest='arg3', type=str, required=True, help="Results address")
+parser.add_argument('-4', dest='arg4', type=str, required=True, help="Cross validation folds (5 in our study)")
+parser.add_argument('-5', dest='arg5', type=str, required=True, help="Cross validation index")
+parser.add_argument('-6', dest='arg6', type=str, required=True, help="Address of index of folds of cross-validation")
+parser.add_argument('-7', dest='arg7', type=str, required=True, help="Model address")
+parser.add_argument('-8', dest='arg8', type=str, required=True, help="Alpha lasso parameter for LR")
+parser.add_argument('-9', dest='arg9', type=str, required=True, help="Number of RF trees")
+parser.add_argument('-10',dest='arg10',type=str, required=True, help="Phenotypes address")
+args = parser.parse_args()
+
 # Argument 1: drug name
 # 
 # Loading Targets
-drug_name_group=sys.argv[1]
-Top_kmers_address=sys.argv[2]
-Results_address=sys.argv[3]
-Cross_Validation=sys.argv[4]
-train_index_address=sys.argv[5]
-test_index_address=sys.argv[6]
-model_address=sys.argv[7]
-alpha_lasso_parameter=sys.argv[8]
-RF_trees=sys.argv[9]
+drug_name_group=args.arg1
+Top_kmers_address=args.arg2
+Results_address=args.arg3
+Cross_Validation_folds=args.arg4
+Cross_Validation_index=args.arg5
+Cross_validation_indexes_address=args.arg6
+model_address=args.arg7
+alpha_lasso_parameter=int(args.arg8)
+RF_trees=int(args.args9)
+phenotype_address=args.arg10
 
 
-train_index=np.load(train_index_address)
-test_index=np.load(test_index_address)
+list_indexes=[]
+#Loading the index of each fold into the list_indexes list
+for i in range (Cross_Validation_folds):
+   list_indexes.append(np.load(\
+      Cross_validation_indexes_address+\
+      "indexes_of_fold_{}.npy".format(i)))
 
-df=pd.read_csv("6224_Targets_NA_3_letters.csv")
+#Choosing the Cross_validation_index in the list_indexes as validation or test set
+test_index =list_indexes[Cross_Validation_index]
+
+list_indexes.pop[Cross_Validation_index]
+
+#considering the rest of folds in index_list as training set
+train_index= np.concatenate(list_indexes)
+
+
+df=pd.read_csv("phenotype_address")
 
 print("Columns in the CSV file are:",flush=True)
 print(df.columns,flush=True)
@@ -111,22 +139,13 @@ phenotype=target[:,group]
 
 # Loading data
 data=np.load(Top_kmers_address+ drug_name+ "/Classifer_data_524288.npy")
-data=data[:,0:65536-1]
 print("The data is loaded",flush=True)
 print("The shape of the used data is:{}".format(np.shape(data)))
 
 # loading clade
 """
-clade=np.load("/blue/boucher/share/Deep_TB_Ali/Extracted_kmer_true_targets/Clade_counts.npy")
-
-data=np.hstack((data,np.reshape(clade,(np.size(clade),1))))
-
-print("Clade is added!")
-print("The shape of the data is : {}".format(np.shape(data)))
+Clades are removed
 """
-
-print("train data size is: {}\n".format(np.shape(train_index)),flush=True)
-print("test data size is: {}\n".format(np.shape(test_index)),flush=True)
 
 
 y_train=phenotype[train_index]
@@ -161,8 +180,6 @@ csv_file=[]
 base=2 # 1 kmers, base kmers, base^2 kmers, base^3 kmers , ...
 list_kmers=[1* pow(base,i) for i in range(math.ceil(math.log(((np.size(X_train,1))/1),base)))]
 #list_kmers.append(np.size(X_train,1))
-
-
 
 
 
