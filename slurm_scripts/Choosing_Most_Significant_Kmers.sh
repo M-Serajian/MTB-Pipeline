@@ -1,7 +1,7 @@
 #!/bin/bash
 #You just need to modify this part for each cross validation
 
-Cross_Validation_number_parallel=5
+Cross_Validation_number_parallel=4
 
 Number_of_Top_Kmers=524288
 

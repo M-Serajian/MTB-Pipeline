@@ -4,9 +4,16 @@ import sys
 import pandas as pd
 
 
-number_of_samples= int(sys.argv[1])
-number_of_folds=sys.argv[2]
-saving_address=sys.argv[3]
+import argparse
+parser = argparse.ArgumentParser(description="Process arguments")
+parser.add_argument('-1', dest='arg1', type=str, required=True, help="Number of samples")
+parser.add_argument('-2', dest='arg2', type=str, required=True, help="Number of Flods")
+parser.add_argument('-3', dest='arg3', type=str, required=True, help="The directory to save these indexes")
+args = parser.parse_args()
+
+number_of_samples= int(args.arg1)
+number_of_folds=args.arg2
+saving_address=args.arg3
 
 
 def main():

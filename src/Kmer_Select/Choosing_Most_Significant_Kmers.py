@@ -15,20 +15,21 @@ parser.add_argument('-2', dest='arg2', type=str, required=True, help="Number of 
 parser.add_argument('-3', dest='arg3', type=str, required=True, help="Number of samples (fasta files)")
 parser.add_argument('-4', dest='arg4', type=str, required=True, help="Address to the Kmers stored")
 parser.add_argument('-5', dest='arg5', type=str, required=True, help="Desierd directory for the outputs")
-parser.add_argument('-6', dest='arg6', type=str, required=True, help="Address to the Chi-square test scores")
+parser.add_argument('-6', dest='arg6', type=str, required=True, help="Address to the Chi-square test scores files")
 parser.add_argument('-7', dest='arg7', type=str, required=True, help="Address to the phenotypes")
+parser.add_argument('-8', dest='arg8', type=str, required=True, help="Which fold of cross-validation (which fold to be validation and the rest are training) (from zero to 4 for 5 fold cross-validation)")
 args = parser.parse_args()
 
 # Argument 1: drug name
 # Argument 2: Top kmers number
-drug_name_group=sys.argv[1]
-Number_of_Top_Kmers=int(sys.argv[2])
-Number_of_samples=int(sys.argv[3])
-Kmers_address=sys.argv[4] 
-Top_kmers_for_each_drug_address=sys.argv[5] 
-Chi_score_addresses_for_each_drug=sys.argv[6]
-Phenotypes_address=sys.argv[7]
-
+drug_name_group=args.arg1
+Number_of_Top_Kmers=int(args.arg2)
+Number_of_samples=int(args.arg3)
+Kmers_address=args.arg4 
+Top_kmers_for_each_drug_address=args.arg5
+Chi_score_addresses_for_each_drug=args.arg6
+Phenotypes_address=args.arg7
+Cross_validation_index=args.arg8
 
 # Loading Phenotypes
 df=pd.read_csv(Phenotypes_address)
@@ -116,8 +117,8 @@ def kmer_index_selector(*args,Number_of_top_kmers_output):
 def kmer_selector (files_count,list_of_numbers,number_of_top_kmers):
   output_size=Number_of_samples + 1
   output=np.zeros((output_size,1)) # The +1 is for the kmer index
-  list_file_names=["counts_file"+str(i)+".npy" for i in range(1,13)]
-
+  list_file_names=["counts_file"+str(i)+"_fold_number_{}.npy".format(Cross_validation_index)+".npy" for i in range(1,13)]
+  
   base_address=Kmers_address
 
   data=1 # to be deleted later, minimizing ram usage overhead

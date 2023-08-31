@@ -5,8 +5,6 @@ from scipy.stats import chi2_contingency
 import pandas as pd
 import sys
 import copy
-# This function is defined to just calculate the Chi-score test on the 
-# unambiguous samples
 
 
 
@@ -17,9 +15,10 @@ parser.add_argument('-2', dest='arg2', type=str, required=True, help="Drug name"
 parser.add_argument('-3', dest='arg3', type=str, required=True, help="Number of samples (fasta files)")
 parser.add_argument('-4', dest='arg4', type=str, required=True, help="Address to the Kmers stored")
 parser.add_argument('-5', dest='arg5', type=str, required=True, help="Desierd directory for the outputs")
-parser.add_argument('-6', dest='arg6', type=str, required=True, help="Address to the index of training set")
-parser.add_argument('-7', dest='arg7', type=str, required=True, help="Address to the index of test set")
-parser.add_argument('-8', dest='arg8', type=str, required=True, help="The address to the phenotypes")
+parser.add_argument('-6', dest='arg6', type=str, required=True, help="Address to the index of cross-validation")
+parser.add_argument('-7', dest='arg7', type=str, required=True, help="The address to the phenotypes")
+parser.add_argument('-8', dest='arg8', type=str, required=True, help="Number of cross-validation folds (5 in our study!)")
+parser.add_argument('-9', dest='arg9', type=str, required=True, help="Which fold of cross-validation (which fold to be validation and the rest are training) (from zero to 4 for 5 fold cross-validation)")
 args = parser.parse_args()
 
 
@@ -28,11 +27,12 @@ drug_name_group=args.arg2
 Number_of_samples=int(args.arg3)
 Kmers_address=args.arg4
 Chi_score_addresses_for_each_drug=args.arg5
-train_index_address=args.arg6
-test_index_address=args.arg7
-The_address_to_phenotypes=args.art8
-df=pd.read_csv(The_address_to_phenotypes)
+Cross_validation_indexes_address=args.arg6
+The_address_to_phenotypes=args.arg7
+Cross_validation_folds=args.arg8
+Cross_validation_index=args.arg9
 
+df=pd.read_csv(The_address_to_phenotypes)
 # Separating test and train data
 # Chi-Score should only be performed on the train data
 
@@ -45,9 +45,21 @@ def get_non_nan_indices(array):
 
 
 #--------------------------------------------------#
+list_indexes=[]
+#Loading the index of each fold into the list_indexes list
+for i in range (Cross_validation_folds):
+   list_indexes.append(np.load(\
+      Cross_validation_indexes_address+\
+      "indexes_of_fold_{}.npy".format(i)))
 
-train_index=np.load(train_index_address)
-test_index =np.load(test_index_address)
+#Choosing the Cross_validation_index in the list_indexes as validation or test set
+test_index =list_indexes[Cross_validation_index]
+
+list_indexes.pop[Cross_validation_index]
+
+#considering the rest of folds in index_list as training set
+train_index= np.concatenate(list_indexes)
+
 
 # Loading Targets
 print("Columns in the CSV file are:")
@@ -158,17 +170,9 @@ for j in range (np.size(train_data,0)): # Kmers are in the rows
 chi_score=np.array(chi_score)
 
 np.save(Chi_score_addresses_for_each_drug +drug_name+\
-        "/chi_score_file"+i+".npy",chi_score)
+        "/chi_score_file"+i+"_fold_number_{}.npy".format(Cross_validation_index),chi_score)
 
 print("The output chi square array's size is : {}".\
       format(np.shape(chi_score)))
 
 print("----------------------------  Finished  ----------------------------")
-
-
-counter=0
-for i in chi_score: 
-   if i>4 :
-    counter= counter+1
-
-print("The number of times chiscore is higher than 4 is: {}".format(counter))

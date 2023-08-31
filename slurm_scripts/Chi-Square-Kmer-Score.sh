@@ -6,7 +6,7 @@
 #This will be very useful for tracking logs and later debugs
 # Modify from here:
 
-Cross_Validation_number_parallel=7
+Cross_Validation_number_parallel=0 #form zero to k-1 for k fold cross-validation
 Needed_memory=155gb
 Process_time=60:00:00
 Array_job_list=1-12 # single job
@@ -69,7 +69,9 @@ do
     train_index_address="/blue/boucher/share/Deep_TB_Ali/Final_TB/test_train_index/Cross_validation_$Cross_Validation_number_parallel/train_index_CV$Cross_Validation_number.npy"
     test_index_address="/blue/boucher/share/Deep_TB_Ali/Final_TB/test_train_index/Cross_validation_$Cross_Validation_number_parallel/test_index_CV$Cross_Validation_number.npy"
     address_to_phenotypes="6224_Targets_NA_3_letters.csv"
+    Cross_validation_index=$Cross_Validation_number_parallel
     # Generate the Slurm script dynamically using a heredoc
+
 cat << EOF > ./temp/$job_name.sh
 #!/bin/bash
 #SBATCH --job-name=$job_name
@@ -92,9 +94,12 @@ python projects/MTB-plus-plus/src/Chi-Square-Kmer-Score/Chi-Square-Kmer-ranking.
                                 $Number_of_samples\\
                                 $Kmers_address\\
                                 $Chi_score_addresses_for_each_drug\\
-                                $train_index_address\\
-                                $test_index_address\\
-                                $address_to_phenotypes
+                                $Cross_validation_indexes_address\\
+                                $address_to_phenotypes\\
+                                $Cross_validation_folds\\
+                                $Cross_validation_index
+
+                             
   
 EOF
 
