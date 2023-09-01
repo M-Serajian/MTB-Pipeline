@@ -22,14 +22,16 @@ def logical_or_with_nan(a, b):
 
 
 def main():
-    # read csv data
-    
-    df1 = pd.read_excel('projects/MTB-plus-plus/Data/ERR_files.xlsx')
+    # reading csv data
+    df1 = pd.read_excel('projects/MTB-plus-plus/Data/ERR_files.xlsx')# this is the list of the data downloaded from ENA
     df2 = pd.read_excel('projects/MTB-plus-plus/Data/Json.xlsx')
 
     # Merging the 2 dataframes based on the RUN numbers
     inner_join = pd.merge(df1, df2, on ='ERR', how ='inner')
-    df3 = pd.read_excel('phenotypes.xlsx')
+    
+    
+    df3 = pd.read_excel('phenotypes.xlsx') # This is the CSV file of the phenotypes given by GWAS paper
+    #
 
     Data = pd.merge(inner_join, df3, on ='ERS', how ='inner')
    
@@ -63,11 +65,6 @@ def main():
     df["FQS"]= df.apply(lambda row: logical_or_with_nan(row["mid"], row['CFZ_BINARY_PHENOTYPE']), axis=1)
     df = df.drop("mid", axis=1)
     
-    # Merging groups of drugs with same family (Colapsing)
-    #df['RIFBB'] = np.logical_or(df['RIF_BINARY_PHENOTYPE'] , df['RFB_BINARY_PHENOTYPE'])
-    #df["Ami_Kan"]= np.logical_or(df['AMI_BINARY_PHENOTYPE'], df['KAN_BINARY_PHENOTYPE'])
-    #df["Fluoroquinolone"]= np.logical_or(df['LEV_BINARY_PHENOTYPE'], df['MXF_BINARY_PHENOTYPE'], df['CFZ_BINARY_PHENOTYPE'])
-    
     # Renaming Drugs
     df = df.rename(columns={'AMI_BINARY_PHENOTYPE': 'AMI',
                             'BDQ_BINARY_PHENOTYPE': 'BDQ',
@@ -87,6 +84,7 @@ def main():
     df.to_csv('6224_Targets_NA_3_letters.csv', index=False)
    #saving the output
     """
+    #Abbreviations
     phenotypes=['AMI',
                 'BDQ',
                 'CFZ',
