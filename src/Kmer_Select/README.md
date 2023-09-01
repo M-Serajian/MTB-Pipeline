@@ -1,4 +1,4 @@
-This code is designed to choose the top Kmers from each separate file of the feature matrix. 
+This code is designed to choose the top Kmers from each separate file of the feature matrix (the output of Chi-Squared-Kmer-Score). 
 
 # Usage
 ```bash
