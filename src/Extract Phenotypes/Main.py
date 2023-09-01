@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import pandas as pd
 import copy
-from sklearn.impute import SimpleImputer
+from sklearn.impute import SimpleImputer #Added in case of simple mode imputation for ambiguous phenotypes yet was removed
 import numpy as np
 from tabulate import tabulate
 
