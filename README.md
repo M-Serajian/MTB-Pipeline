@@ -1,21 +1,44 @@
 # MTB-plus-plus
-This is the software developed to predict antimicrobial resistance (AMR) in MTB bacteria using machine learning for 13 groups of antibiotics including Amikacin, Bedaquiline, Clofazimine, Delamanid, Ethambutol, Ethionamide, Isoniazid, Kanamycin, Levofloxacin, Linezolid, Moxifloxacin, Rifampicin, Rifabutin; and 3 antibiotic families including Rifampin(RIA), Aminoglycosides(AMG), Fluoroquinolone(FQS).
+This is the software developed to predict antimicrobial resistance (AMR) in MTB bacteria using machine learning for 13 groups of antibiotics including Amikacin, Bedaquiline, Clofazimine, Delamanid, Ethambutol, Ethionamide, Isoniazid, Kanamycin, Levofloxacin, Linezolid, Moxifloxacin, Rifampicin, Rifabutin; and 3 antibiotic families including Rifampin, Aminoglycosides, Fluoroquinolone.
+
+This README contains instructions on how to run the trained classifier or to rebuild the classifier from raw data.  Rebuilding is an advanced use-case.  We expect most users to only run the trained classifier. 
+
+### Citation ###
+This software is under GNU license.  If you use the software please cite the following paper:   
+
 ### Build ###
-#### Dependencies ####
-* [SPAdes] (https://github.com/ablab/spades)
-* [enaBrowserTools] ((https://github.com/M-Serajian/enaBrowserTools/blob/
-c9ed1a39510bb976079177f2726f0a0ec9cf1275/Projects.txt))
+### Dependencies ###
+* [SPAdes](https://github.com/ablab/spades)
+* [enaBrowserTools](https://github.com/M-Serajian/enaBrowserTools/blob/c9ed1a39510bb976079177f2726f0a0ec9cf1275/Projects.txt)
 * python 3.0+
 * sk-learn
+
+#### Install SBWT #### 
+```bash
+docker pull sbwt
+```
+
+## Classifying Data using MTB++ ##
+Below are the instructions to use the classifier. Here, we assume that the data to be classified is available as a set of paired-end sequence reads.  In our example, we will have `reads1.fq` and `reads2.fq`
+
+### Assemble the data into contigs ###
+Use SPAdes to assemble the data
+```bash
+spades.py -r1 reads1.fastq -r2 reads2.fastq -o contigs.fa
+```
+### Classify the data using the models ###
+Take the `contigs.fa` file to make a prediction using the models
+```bash
+run.py -i contigs.fa -o prediction.txt 
+```
+
+
+
 
 
 ## Building the Classifier ##
 Below are the instructions in order to rebuild the classifier and reproduce our results. If you would like to just use the trained classifier, see above.
 
-### Install SBWT ### 
-```bash
-docker pull sbwt
-```
 
 ### Download the raw data ###
 The first step is to download the FASTQ data, using European Nucleotide Archive (ENA) Browser Tools.
@@ -55,17 +78,26 @@ python projects/MTB-plus-plus/src/Ascii_to_Feature_Matrix/Ascii_to_Matrix.py $fi
           $min_filter_kmers_occurring_less_than\
           $max_filter_kmers_occurring_more_than
 ```
-These commands are also available in a script. See [ascii_to_feature.sh](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Ascii_to_Feature_Matrix).
+These commands are also available in a script. The output should be `.npy` files that we will use in the next step.  See [ascii_to_feature.sh](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Ascii_to_Feature_Matrix).
 
 
 ### Feature selection. ### 
 
-Create five folds of the data to be further used for Chi-squared test and classification [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Cross_validation)
+Create five folds of the data to be further used for Chi-squared test and classification.
+```bash
+./mypython.py somthing.npy > output
+```
 
 Next, we perform Chi-squared test to rank the features based on their significance [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Chi-Square-Kmer-Ranking).
- 
+ ```bash
+./mypython.py somthing.npy > output
+```
 Lastly, we select the top features for each resistance class for training the classifiers [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Kmer_Select).
-
+```bash
+./mypython.py somthing.npy > output
+```
 ### Train the Classifiers ### 
-
 The last step is to train classifiers, both the Logistic Regression and Random Forest classifiers. [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Classifier).
+```bash
+./mypython.py somthing.npy > output
+```
