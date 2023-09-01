@@ -24,7 +24,7 @@ def logical_or_with_nan(a, b):
 def main():
     # reading csv data
     df1 = pd.read_excel('projects/MTB-plus-plus/Data/ERR_files.xlsx')# this is the list of the data downloaded from ENA
-    df2 = pd.read_excel('projects/MTB-plus-plus/Data/Json.xlsx')
+    df2 = pd.read_excel('projects/MTB-plus-plus/Data/Json.xlsx')# this is the .Json file from GWAS paper. the link is mentioned in README.md
 
     # Merging the 2 dataframes based on the RUN numbers
     inner_join = pd.merge(df1, df2, on ='ERR', how ='inner')
