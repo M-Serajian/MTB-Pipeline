@@ -9,13 +9,13 @@ Download the raw data. The data used in this study are available at the European
 Assemble FASTQ data using [SPAdes](https://github.com/ablab/spades).
 
 ## Third step: 
-Extract the phenotypes from the ENA data and match the identifier numbers. 
+Extract the phenotypes from the ENA data and match the identifier numbers [here.](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Extract%20Phenotypes)
 
 ## Fourth step: 
 Extract Kmer using [SBWT-kmer-counters](https://github.com/jnalanko/SBWT-kmer-counters).
 
 ## Fifth step: 
-Transform the output of the previous section to a feature matrix [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Ascii_to_Feature_Matrix).
+Transform the output of the previous section to a feature matrix [here.](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Ascii_to_Feature_Matrix).
 
 ## Sixth step: 
 Create 5 folds of the data to be further used for Chi-squared test and classification [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Cross_validation)
