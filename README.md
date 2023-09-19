@@ -12,6 +12,7 @@ This software is under GNU license.  If you use the software please cite the fol
 * [enaBrowserTools](https://github.com/M-Serajian/enaBrowserTools/blob/c9ed1a39510bb976079177f2726f0a0ec9cf1275/Projects.txt)
 * python 3.0+
 * sk-learn
+* joblib
 
 #### Install SBWT #### 
 ```bash
