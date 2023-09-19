@@ -1,6 +1,7 @@
 import argparse
 import os
 import subprocess
+from src.Resistance_Predictor import Resistance_Predictor
 
 def main():
     parser = argparse.ArgumentParser(description="Process data")
