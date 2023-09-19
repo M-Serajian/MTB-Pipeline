@@ -1,26 +1,26 @@
-#!/usr/bin/env python
 import argparse
 import os
+import subprocess
 
-def main(input_file, output_directory):
-    # Your main script logic here
-    print("Input file:", input_file)
-    print("Output directory:", output_directory)
+def main():
+    parser = argparse.ArgumentParser(description="Process data")
+    parser.add_argument("-f", help="Input MTB assembled sequence or FASTA file (mandatory)", type=str)
+    parser.add_argument("-o", help="The output file which will be .CSV (optional, default: input_file_name.csv)", type=str, default=None)
+    
+    args = parser.parse_args()
+    
+    # Ensure that input_file is provided
+    if not args.f:
+        parser.error("The input file is mandatory.")
+    
+    # If output_file is not provided, set it to input_file + '.csv'
+    if args.o is None:
+        args.o = args.f + '.csv'
+    
+    # Your code to process the data goes here
+    print(f"Input sequence is : {args.f}")
 
-
+    
 
 if __name__ == "__main__":
-    # Create an argument parser
-    parser = argparse.ArgumentParser(description="MTB++ usage")
-
-    # Add the required input file argument
-    parser.add_argument("-i", "--input", required=True, help="Input file, should be a FASTA file")
-
-    # Add the optional output directory argument with a default value
-    parser.add_argument("-o", "--output", required=True, help="Output directory (CSV file)")
-
-    # Parse the command-line arguments
-    args = parser.parse_args()
-
-    # Call the main function with the parsed arguments
-    main(args.input, args.output)
+    main()
