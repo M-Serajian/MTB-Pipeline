@@ -1,7 +1,7 @@
 import numpy as np
 import joblib
 import os
-from utils import Ascii_reader
+from .utils import Ascii_reader
 
 # Drug_number, orders 
 drug_names=["Amikacin",\
@@ -22,7 +22,7 @@ drug_names=["Amikacin",\
             "FQS"]
 
 
-def Resistance_predictor(SBWT_ascci_output_address,drug_number):
+def AMR_predictor(SBWT_ascci_output_address,drug_number):
     output=[]
 
     drug=drug_names[drug_number]
