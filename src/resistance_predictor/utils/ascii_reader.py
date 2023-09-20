@@ -60,8 +60,7 @@ def SBWT_Matrix_creator(address_to_ascii_file,length_of_array):
 
 def sbwt_rank_to_trained_ml_rank(input_sbwt_rank_array,group_number):
 
-    data_file_path = os.path.join('..','..', '..',\
-                                  'data',"SBWT_hash_table",\
+    data_file_path = os.path.join('data',"SBWT_hash_table",\
                                   'SBWT_index_to_Top_kmer_transform_matrix.npy')
 
     full_transform_array=np.load(data_file_path)
