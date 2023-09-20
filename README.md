@@ -3,6 +3,17 @@ This is the software developed to predict antimicrobial resistance in MTB bacter
 
 This README contains instructions on how to run the trained classifier or to rebuild the classifier from raw data.  Rebuilding is an advanced use-case.  We expect most users to only run the trained classifier.   This software is maintained by Ali Serajian (ma.serajian@gmail.com).  Please post an Issue onto GitHub if there are any issues with these instructions.
 
+# Installation
+```bash
+git clone https://github.com/M-Serajian/MTB-plus-plus.git
+cd MTB-plus-plus
+sh setup.sh
+```
+
+# Usage
+```bash
+python Mtb++.py -f FASTAfile -o Output.csv
+```
 ### Citation ###
 This software is under GNU license.  If you use the software please cite the following paper:   
 
