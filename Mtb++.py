@@ -8,6 +8,10 @@ import random
 import string
 import subprocess
 import csv
+import sys
+# Set the working directory to the directory containing your main script
+print(sys.argv[0])
+os.chdir(os.path.dirname(__file__))
 # Global varible, drug names:
 
 # Drug_number, orders 
@@ -30,28 +34,28 @@ drug_names=["Amikacin",\
 
 
 def main():
-    header= [" "]+drug_names
-    LR_report=["Logistic Regression"]
-    RF_report=["Random Forest"]
-    parser = argparse.ArgumentParser(description="Mtb++ (Mycobacterium tuberculosis antimicrobial resistance detector)",usage="-f FASTAfile is required. The output is optional\n\
-    By default, the output file is with the same name of input file in a .csv format unless specified!")
-    
-    parser.add_argument("-f", help="Input MTB assembled sequence or FASTA file (mandatory)", type=str)
+    # Parsing input arguments:
 
-    parser.add_argument("-o", help="The output file which will be .CSV (optional, default: input_file_name.csv)", type=str, default=None)
+    parser = argparse.ArgumentParser(description="Mtb++ (Mycobacterium tuberculosis antimicrobial resistance detector)",usage="-f PATH/FASTAfile -o PATH/output.csv")
+    
+    parser.add_argument("-f", help="Input MTB assembled sequence or FASTA file (required)", type=str)
+    
+    parser.add_argument("-o", help="The output file which will be .csv (required)", type=str)
     
     args = parser.parse_args()
+
+    # Check if the output file path is an absolute path or a relative path
+    if not os.path.isabs(args.o):
+        # Construct the absolute path for the output file based on the current working directory
+        output_file_address = os.path.abspath(args.o)
+    else:
+        output_file_address = args.o
     
-    # Ensure that input_file is provided
-    if not args.f:
-        parser.error("The input FASTA file is required!")
-    
-    # If output_file is not provided, set it to input_file + '.csv'
-    if args.o is None:
-        args.o = args.f + '.csv'
     
     input_file_address=args.f
-    output_file_address=args.o
+
+
+
     # Define the characters that can be used in the random string
     characters = string.ascii_letters + string.digits
     # Generate a random 20-character string to be used as the name for temporary files during the processing
@@ -62,14 +66,17 @@ def main():
     #Calculating the color matrix and parsing 
     #the Ascii code and doing the classification 
     #at the same time
-
+    
+    header= [" "]+drug_names
+    LR_report=["Logistic Regression"]
+    RF_report=["Random Forest"]
     drug_number=0
     for drug in drug_names:
         address_to_kmer_counters_executable= "."+ os.path.join('/src',"SBWT-kmer-counters","counters") 
         SBWT_index="/home/m.serajian/projects/MTB-plus-plus/data/SBWT_indexes/{}.sbwt".format(drug)
         temporary_file="temp/"+prefix_temporary_files+"_"+drug+".txt"
         command= address_to_kmer_counters_executable+ " "+ SBWT_index + " " + input_file_address+">"+temporary_file
-        subprocess.run(command, check=False, shell=True)
+        subprocess.run(command, check=False, shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         prediction=resistance_predictor.AMR_predictor(temporary_file,drug_number)
         LR_report.append(prediction[0])
         RF_report.append(prediction[1])
