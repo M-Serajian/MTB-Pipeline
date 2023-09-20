@@ -69,28 +69,21 @@ def main():
         SBWT_index="/home/m.serajian/projects/MTB-plus-plus/data/SBWT_indexes/{}.sbwt".format(drug)
         temporary_file="temp/"+prefix_temporary_files+"_"+drug+".txt"
         command= address_to_kmer_counters_executable+ " "+ SBWT_index + " " + input_file_address+">"+temporary_file
-        subprocess.run(command, check=False, shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.run(command, check=False, shell=True)
         prediction=resistance_predictor.AMR_predictor(temporary_file,drug_number)
         LR_report.append(prediction[0])
         RF_report.append(prediction[1])
         os.remove(temporary_file)
+        drug_number=drug_number+1
     
 
         # Create and open the CSV file in write mode
     with open(output_file_address, mode='w', newline='') as csv_file:
         # Create a CSV writer object
         csv_writer = csv.writer(csv_file)
-        
-        # Write the header row if needed (optional)
-        # csv_writer.writerow(['Column1', 'Column2', 'Column3'])
-        
-        # Write each list as a row in the CSV file
-        for row_data in zip(header, LR_report, RF_report):
-            csv_writer.writerow(row_data)
-    
-
-    
-
+        csv_writer.writerow(header)
+        csv_writer.writerow(LR_report)
+        csv_writer.writerow(RF_report)
 
 
 if __name__ == "__main__":
