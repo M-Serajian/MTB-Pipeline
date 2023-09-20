@@ -7,7 +7,7 @@ from src.resistance_predictor import resistance_predictor
 import random
 import string
 import subprocess
-
+import csv
 # Global varible, drug names:
 
 # Drug_number, orders 
@@ -27,8 +27,6 @@ drug_names=["Amikacin",\
             "RIA",\
             "AMG",\
             "FQS"]
-
-drug_names=["Amikacin"]
 
 
 def main():
@@ -76,6 +74,20 @@ def main():
         LR_report.append(prediction[0])
         RF_report.append(prediction[1])
         os.remove(temporary_file)
+    
+
+        # Create and open the CSV file in write mode
+    with open(output_file_address, mode='w', newline='') as csv_file:
+        # Create a CSV writer object
+        csv_writer = csv.writer(csv_file)
+        
+        # Write the header row if needed (optional)
+        # csv_writer.writerow(['Column1', 'Column2', 'Column3'])
+        
+        # Write each list as a row in the CSV file
+        for row_data in zip(header, LR_report, RF_report):
+            csv_writer.writerow(row_data)
+    
 
     
 
