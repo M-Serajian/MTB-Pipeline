@@ -127,7 +127,7 @@ def main():
     reset_color = "\033[0m"  # Reset color to default
 
     # Print the message with the output_file_address in blue
-    print("The MTB MR predictions for {}{}{} are stored at {}{}{} directory!".format(blue_color,file_name,reset_color,blue_color, output_file_address, reset_color))
+    print("The MTB AMR predictions for {}{}{} are stored at {}{}{} directory!".format(blue_color,file_name,reset_color,blue_color, output_file_address, reset_color))
 
 
 
