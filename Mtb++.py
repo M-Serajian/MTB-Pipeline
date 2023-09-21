@@ -1,14 +1,16 @@
-import argparse
+#!/usr/bin/env python
 import os
+import sys
 import subprocess
-import numpy as np
-import os
+
+import argparse
+
 from src.resistance_predictor import resistance_predictor
 import random
 import string
 import subprocess
 import csv
-import sys
+
 # Get the current directory of the script
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -60,6 +62,7 @@ def main():
 
     
     input_file_address=args.f
+    file_name = os.path.basename(input_file_address)
 
 
 
@@ -85,11 +88,13 @@ def main():
     for drug in drug_names:
 
         #Address to the SBWK index for each specific drug
-        SBWT_index = os.path.join(current_dir, "data", "SBWT_indexes","{}.sbwt".format(drug))
+        #SBWT_index = os.path.join(current_dir, "data", "SBWT_indexes","{}.sbwt".format(drug))
+        SBWT_index = os.path.join( "data", "SBWT_indexes","{}.sbwt".format(drug))
 
         #Temporary random file names that will be removed later on
         #temporary_file=current_dir+"/temp/"+prefix_temporary_files+"_"+drug+".txt"
-        temporary_file = os.path.join(current_dir, "temp", prefix_temporary_files+"_"+drug+".txt")
+        #temporary_file = os.path.join(current_dir, "temp", prefix_temporary_files+"_"+drug+".txt")
+        temporary_file = os.path.join("temp", prefix_temporary_files+"_"+drug+".txt")
 
         #Runing the SBWK Kmer Counter to create the color matrix
 
@@ -109,7 +114,6 @@ def main():
         os.remove(temporary_file)
         drug_number=drug_number+1
     
-
         # Create and open the CSV file in write mode
     with open(output_file_address, mode='w', newline='') as csv_file:
         # Create a CSV writer object
@@ -123,7 +127,7 @@ def main():
     reset_color = "\033[0m"  # Reset color to default
 
     # Print the message with the output_file_address in blue
-    print("The AMR predictions are stored at {}{}{} directory!".format(blue_color, output_file_address, reset_color))
+    print("The MTB MR predictions for {}{}{} are stored at {}{}{} directory!".format(blue_color,file_name,reset_color,blue_color, output_file_address, reset_color))
 
 
 
