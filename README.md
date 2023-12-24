@@ -5,14 +5,15 @@ This README contains instructions on how to run the trained classifier or to reb
 
 ## Installation ##
 
-### Dependencies ###
+### Autimatic Installation ###
+
+#### Dependencies ####
+
 * python 3.0+ (3.6+ recommended)
     ** sk-learn (Version 1.1.2) 
     ** joblib
 * [Cmake](https://cmake.org/)
 *  GCC (9.3.3 recommended)
-* [SBWT_Kmer_counters](https://github.com/M-Serajian/SBWT-kmer-counters)
-
 
 ### Installation Instructions ###
 
