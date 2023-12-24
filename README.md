@@ -44,7 +44,9 @@ cd MTB-plus-plus
     Compile [SBWT_Kmer_Counters](https://github.com/M-Serajian/SBWT-kmer-counters) as follows:
 
 ```bash
-cd src
+git clone https://github.com/M-Serajian/MTB-plus-plus.git
+cd MTB-plus-plus/src
+git clone https://github.com/M-Serajian/SBWT-kmer-counters.git
 cd SBWT-kmer-counters
 git submodule update --init --recursive
 cd SBWT/build
