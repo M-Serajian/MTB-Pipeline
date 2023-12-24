@@ -30,11 +30,11 @@ If the setup script is not applicable to your system (for example, if your syste
 
 #### Dependencies ####
 
-*[Cmake](https://cmake.org/)
-*[python](https://www.python.org/) 3.0+ (3.6+ recommended)
+* [Cmake](https://cmake.org/)
+* [python](https://www.python.org/) 3.0+ (3.6+ recommended)
     - sk-learn (Version 1.1.2) 
     - joblib
-*[GCC](https://gcc.gnu.org/) (9.3.3 recommended)
+* [GCC](https://gcc.gnu.org/) (9.3.3 recommended)
 
 Run the following in the command line. 
 ```bash
