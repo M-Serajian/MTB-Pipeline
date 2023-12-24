@@ -3,7 +3,7 @@ This is the software developed to predict antimicrobial resistance in MTB bacter
 
 This README contains instructions on how to run the trained classifier or to rebuild the classifier from raw data.  Rebuilding is an advanced use-case.  We expect most users to only run the trained classifier.   This software is maintained by Ali Serajian (ma.serajian@gmail.com).  Please post an Issue onto GitHub if there are any issues with these instructions.
 
-### Installation ###
+## Installation ##
 
 ### Dependencies ###
 * python 3.0+ (3.6+ recommended)
@@ -13,11 +13,48 @@ This README contains instructions on how to run the trained classifier or to reb
 *  GCC (9.3.3 recommended)
 * [SBWT_Kmer_counters](https://github.com/M-Serajian/SBWT-kmer-counters)
 
+
+### Installation Instructions ###
+
+To simplify the installation process, the provided `setup.sh` script automates the setup by utilizing the "module load" environment. The script loads essential modules such as GCC and CMake, compiles SBWT, and verifies the version of Scikit-learn. To use the script, follow these steps:
+
 ```bash
 git clone https://github.com/M-Serajian/MTB-plus-plus.git
 cd MTB-plus-plus
 sh setup.sh
 ```
+
+## Manual Installation
+
+If the setup script is not applicable to your system (for example, if your system does not support the "module load" environment), follow these manual installation steps:
+
+1. **Install Dependencies:**
+    - CMake
+    - Python 3+
+    - GCC (9.3.3 recommended)
+
+```bash
+git clone https://github.com/M-Serajian/MTB-plus-plus.git
+cd MTB-plus-plus
+```
+2. **Compiling and Installing SBWT_Kmer_Counters:**
+    Compile [SBWT_Kmer_Counters](https://github.com/M-Serajian/SBWT-kmer-counters) as follows:
+
+```bash
+cd src
+cd SBWT-kmer-counters
+git submodule update --init --recursive
+cd SBWT/build
+cmake ..
+make -j
+```
+
+3. **Install Scikit-learn version 1.1.2:**
+   ```bash
+   pip3 install scikit-learn==1.1.2
+   ```
+
+
 
 # Usage
 ```bash
