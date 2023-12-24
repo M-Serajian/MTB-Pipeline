@@ -9,7 +9,7 @@ This README contains instructions on how to run the trained classifier or to reb
 
 #### Dependencies ####
 
-* python 3.0+ (3.6+ recommended)
+* [python](https://www.python.org/) 3.0+ (3.6+ recommended)
     - sk-learn (Version 1.1.2) 
     - joblib
 * [Cmake](https://cmake.org/)
@@ -30,7 +30,7 @@ If the setup script is not applicable to your system (for example, if your syste
 
 1. **Install Dependencies:**
     * CMake
-    * Python 3+
+    [python](https://www.python.org/) 3.0+ (3.6+ recommended)
         - sk-learn (Version 1.1.2) 
         - joblib
     * GCC (9.3.3 recommended)
