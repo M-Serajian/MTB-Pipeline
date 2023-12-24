@@ -10,12 +10,12 @@ This README contains instructions on how to run the trained classifier or to reb
 #### Dependencies ####
 
 * python 3.0+ (3.6+ recommended)
-    ** sk-learn (Version 1.1.2) 
-    ** joblib
+    - sk-learn (Version 1.1.2) 
+    - joblib
 * [Cmake](https://cmake.org/)
 *  GCC (9.3.3 recommended)
 
-### Installation Instructions ###
+#### Installation Instructions ####
 
 To simplify the installation process, the provided `setup.sh` script automates the setup by utilizing the "module load" environment. The script loads essential modules such as GCC and CMake (they need to be installed), compiles SBWT, and verifies the version of Scikit-learn. To use the script, follow these steps:
 
@@ -25,14 +25,16 @@ cd MTB-plus-plus
 sh setup.sh
 ```
 
-## Manual Installation
+### Manual Installation ###
 
 If the setup script is not applicable to your system (for example, if your system does not support the "module load" environment), follow these manual installation steps:
 
 1. **Install Dependencies:**
-    - CMake
-    - Python 3+
-    - GCC (9.3.3 recommended)
+    * CMake
+    * Python 3+
+        - sk-learn (Version 1.1.2) 
+        - joblib
+    * GCC (9.3.3 recommended)
 
 ```bash
 git clone https://github.com/M-Serajian/MTB-plus-plus.git
