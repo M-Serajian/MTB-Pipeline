@@ -16,7 +16,7 @@ This README contains instructions on how to run the trained classifier or to reb
 
 ### Installation Instructions ###
 
-To simplify the installation process, the provided `setup.sh` script automates the setup by utilizing the "module load" environment. The script loads essential modules such as GCC and CMake, compiles SBWT, and verifies the version of Scikit-learn. To use the script, follow these steps:
+To simplify the installation process, the provided `setup.sh` script automates the setup by utilizing the "module load" environment. The script loads essential modules such as GCC and CMake (they need to be installed), compiles SBWT, and verifies the version of Scikit-learn. To use the script, follow these steps:
 
 ```bash
 git clone https://github.com/M-Serajian/MTB-plus-plus.git
