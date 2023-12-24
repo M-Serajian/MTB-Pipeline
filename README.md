@@ -62,6 +62,7 @@ make -j
 
 
 # Usage
+Mtb++.py can be located at the MTB-plus-plus directory. 
 ```bash
 python Mtb++.py -f FASTAfile -o Output.csv
 ```
