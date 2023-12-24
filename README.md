@@ -22,7 +22,6 @@ To simplify the installation process, the provided `setup.sh` script automates t
 ```bash
 git clone https://github.com/M-Serajian/MTB-plus-plus.git
 cd MTB-plus-plus
-sh setup.sh
 ```
 
 ### Manual Installation ###
@@ -36,6 +35,7 @@ If the setup script is not applicable to your system (for example, if your syste
         - joblib
     * GCC (9.3.3 recommended)
 
+Run the following in the command line. 
 ```bash
 git clone https://github.com/M-Serajian/MTB-plus-plus.git
 cd MTB-plus-plus
@@ -44,8 +44,7 @@ cd MTB-plus-plus
     Compile [SBWT_Kmer_Counters](https://github.com/M-Serajian/SBWT-kmer-counters) as follows:
 
 ```bash
-git clone https://github.com/M-Serajian/MTB-plus-plus.git
-cd MTB-plus-plus/src
+cd src
 git clone https://github.com/M-Serajian/SBWT-kmer-counters.git
 cd SBWT-kmer-counters
 git submodule update --init --recursive
@@ -58,8 +57,6 @@ make -j
    ```bash
    pip3 install scikit-learn==1.1.2
    ```
-
-
 
 # Usage
 Mtb++.py can be located at the MTB-plus-plus directory (the root on the cloned directory).
