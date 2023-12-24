@@ -29,11 +29,11 @@ cd MTB-plus-plus
 If the setup script is not applicable to your system (for example, if your system does not support the "module load" environment), follow these manual installation steps:
 
 1. **Install Dependencies:**
-    * CMake
-    [python](https://www.python.org/) 3.0+ (3.6+ recommended)
+    *[Cmake](https://cmake.org/)
+    *[python](https://www.python.org/) 3.0+ (3.6+ recommended)
         - sk-learn (Version 1.1.2) 
         - joblib
-    * [GCC](https://gcc.gnu.org/) (9.3.3 recommended)
+    *[GCC](https://gcc.gnu.org/) (9.3.3 recommended)
 
 Run the following in the command line. 
 ```bash
