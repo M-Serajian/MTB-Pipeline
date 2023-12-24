@@ -62,7 +62,8 @@ make -j
 
 
 # Usage
-Mtb++.py can be located at the MTB-plus-plus directory. 
+Mtb++.py can be located at the MTB-plus-plus directory (the root on the cloned directory).
+ 
 ```bash
 python Mtb++.py -f FASTAfile -o Output.csv
 ```
@@ -100,9 +101,6 @@ Take the `contigs.fa` file to make a prediction using the models
 ```bash
 run.py -i contigs.fa -o prediction.txt 
 ```
-
-
-
 
 
 ## Building the Classifier ##
