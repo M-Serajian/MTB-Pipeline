@@ -2,8 +2,13 @@
 import numpy as np
 import os
 import joblib
-#list of Drugs
 
+#defining the path variables to make everything compatible with each other
+
+ascii_reader_dir = os.path.dirname(os.path.abspath(__file__))
+print (ascii_reader_dir)
+accessing_main_from_ascii_reader_dir = os.path.abspath(os.path.join(ascii_reader_dir,"..","..", ".."))
+print(accessing_main_from_ascii_reader_dir)
 
 def line_parser (string):
     
@@ -60,7 +65,7 @@ def SBWT_Matrix_creator(address_to_ascii_file,length_of_array):
 
 def sbwt_rank_to_trained_ml_rank(input_sbwt_rank_array,group_number):
 
-    data_file_path = os.path.join('data',"SBWT_hash_table",\
+    data_file_path = os.path.join(accessing_main_from_ascii_reader_dir,'data',"SBWT_hash_table",\
                                   'SBWT_index_to_Top_kmer_transform_matrix.npy')
 
     full_transform_array=np.load(data_file_path)

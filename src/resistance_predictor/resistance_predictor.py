@@ -3,6 +3,12 @@ import joblib
 import os
 from .utils import ascii_reader
 
+#Defining the path variables to make the whole package compatible with each other
+
+resistance_predictor_dir = os.path.dirname(os.path.abspath(__file__))
+
+accessing_main_from_resistance_predictor = os.path.abspath(os.path.join(resistance_predictor_dir, "..", ".."))
+
 drug_names=["Amikacin",\
             "Bedaquiline",\
             "Clofazimine",\
@@ -23,10 +29,10 @@ drug_names=["Amikacin",\
 def AMR_predictor(SBWT_ascci_output_address,drug_number):
     
     output=[]
-
+    
     drug=drug_names[drug_number]
     #loading trained model
-    LR_model_path = os.path.join('data',"trained_classifiers", 'LR_{}.pkl'.format(drug))
+    LR_model_path = os.path.join(accessing_main_from_resistance_predictor,'data',"trained_classifiers", 'LR_{}.pkl'.format(drug))
     loaded_model = joblib.load(LR_model_path)
 
     #Transforming SBWT to a matrix readable for machine learning
@@ -45,7 +51,7 @@ def AMR_predictor(SBWT_ascci_output_address,drug_number):
         output.append("Resistant")
 
 
-    RF_model_path = os.path.join('data',"trained_classifiers", 'RF_{}.pkl'.format(drug))
+    RF_model_path = os.path.join(accessing_main_from_resistance_predictor,'data',"trained_classifiers", 'RF_{}.pkl'.format(drug))
     loaded_model = joblib.load(RF_model_path)
 
     number_of_features_needed=np.size(loaded_model.feature_importances_)

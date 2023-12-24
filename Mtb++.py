@@ -89,20 +89,21 @@ def main():
 
         #Address to the SBWK index for each specific drug
         #SBWT_index = os.path.join(current_dir, "data", "SBWT_indexes","{}.sbwt".format(drug))
-        SBWT_index = os.path.join( "data", "SBWT_indexes","{}.sbwt".format(drug))
+        SBWT_index = os.path.join(project_root,"data", "SBWT_indexes","{}.sbwt".format(drug))
 
         #Temporary random file names that will be removed later on
         #temporary_file=current_dir+"/temp/"+prefix_temporary_files+"_"+drug+".txt"
         #temporary_file = os.path.join(current_dir, "temp", prefix_temporary_files+"_"+drug+".txt")
-        temporary_file = os.path.join("temp", prefix_temporary_files+"_"+drug+".txt")
+        temporary_file = os.path.join(project_root,"MTB-plus-plus","temp", prefix_temporary_files+"_"+drug+".txt")
 
         #Runing the SBWK Kmer Counter to create the color matrix
 
         #Address to the SBWK Kmer Counter executable
-        address_to_kmer_counters_executable= "."+ os.path.join('/src',"SBWT-kmer-counters","counters") 
+        address_to_kmer_counters_executable= "."+ os.path.join(project_root,'src',"SBWT-kmer-counters","counters") 
 
         command= address_to_kmer_counters_executable+ " "+ SBWT_index + " " + input_file_address+">"+temporary_file
         #Runing the command
+
         subprocess.run(command, check=False, shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
         #Prediciting AMR by pretrained models

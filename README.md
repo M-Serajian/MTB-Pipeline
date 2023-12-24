@@ -6,11 +6,14 @@ This README contains instructions on how to run the trained classifier or to reb
 ### Installation ###
 
 ### Dependencies ###
+* python 3.0+ (3.6+ recommended)
+    ** sk-learn (Version 1.1.2) 
+    ** joblib
+* [Cmake](https://cmake.org/)
+*  GCC (9.3.3 recommended)
+* [SBWT_Kmer_counters](https://github.com/M-Serajian/SBWT-kmer-counters)
 * [SPAdes](https://github.com/ablab/spades)
 * [enaBrowserTools](https://github.com/M-Serajian/enaBrowserTools/blob/c9ed1a39510bb976079177f2726f0a0ec9cf1275/Projects.txt)
-* python 3.0+
-* sk-learn
-* joblib
 
 ```bash
 git clone https://github.com/M-Serajian/MTB-plus-plus.git
