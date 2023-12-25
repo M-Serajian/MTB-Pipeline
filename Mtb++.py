@@ -65,7 +65,6 @@ def main():
     file_name = os.path.basename(input_file_address)
 
 
-
     # Define the characters that can be used in the random string
     characters = string.ascii_letters + string.digits
     # Generate a random 20-character string to be used as the name for temporary files during the processing
@@ -86,11 +85,10 @@ def main():
     drug_number=0
 
     for drug in drug_names:
-
         #Address to the SBWK index for each specific drug
         #SBWT_index = os.path.join(current_dir, "data", "SBWT_indexes","{}.sbwt".format(drug))
-        SBWT_index = os.path.join(project_root,"data", "SBWT_indexes","{}.sbwt".format(drug))
-
+        SBWT_index = os.path.join(project_root,"MTB-plus-plus","data", "SBWT_indexes","{}.sbwt".format(drug))
+        
         #Temporary random file names that will be removed later on
         #temporary_file=current_dir+"/temp/"+prefix_temporary_files+"_"+drug+".txt"
         #temporary_file = os.path.join(current_dir, "temp", prefix_temporary_files+"_"+drug+".txt")
@@ -99,22 +97,33 @@ def main():
         #Runing the SBWK Kmer Counter to create the color matrix
 
         #Address to the SBWK Kmer Counter executable
-        address_to_kmer_counters_executable= "."+ os.path.join(project_root,'src',"SBWT-kmer-counters","counters") 
+        address_to_kmer_counters_executable= os.path.join(project_root,"MTB-plus-plus",'src',"SBWT-kmer-counters","counters") 
 
         command= address_to_kmer_counters_executable+ " "+ SBWT_index + " " + input_file_address+">"+temporary_file
         #Runing the command
-
         subprocess.run(command, check=False, shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
-        #Prediciting AMR by pretrained models
+        command= address_to_kmer_counters_executable+ " "+ SBWT_index + " " + input_file_address+">"+temporary_file
+        #Runing the command
+        #subprocess.run(command, check=False, shell=True,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            
+        try:
+            result = subprocess.run(command, check=True, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            print("SBWT kmer count was successfully run on input FASTA file")
+        except subprocess.CalledProcessError as e:
+            error_message = f"Could not run SBWT Kmer count for {drug} on the data for {input_file_address}, aborted. Error: {e.stderr.strip()}"
+            print(f"\033[91m{error_message}\033[0m")  # Use ANSI escape codes for red color
+            os.remove(temporary_file)
+            raise  
+            #Prediciting AMR by pretrained models
+        
         prediction=resistance_predictor.AMR_predictor(temporary_file,drug_number)
-
         #Saving to the lists
         LR_report.append(prediction[0]) #LR
         RF_report.append(prediction[1]) #RF
         os.remove(temporary_file)
         drug_number=drug_number+1
-    
+     
         # Create and open the CSV file in write mode
     with open(output_file_address, mode='w', newline='') as csv_file:
         # Create a CSV writer object

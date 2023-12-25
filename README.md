@@ -4,16 +4,20 @@ This is the software developed to predict antimicrobial resistance in MTB bacter
 This README contains instructions on how to run the trained classifier or to rebuild the classifier from raw data.  Rebuilding is an advanced use-case.  We expect most users to only run the trained classifier.   This software is maintained by Ali Serajian (ma.serajian@gmail.com).  Please post an Issue onto GitHub if there are any issues with these instructions.
 
 ## Installation ##
+Two methods of installation are considered for MTB++ according to the user's preference. [Automatic Installation](#Autimatic-Installation), and [Manual Installation](#Manual-Installation). In case your system supports the "module load" environment, you can your the Automatic Installation, otherwise, Manual Installation is recommended. 
 
-### Autimatic Installation ###
+Regardless of the installation method used, the following dependencies should be installed first. 
 
 #### Dependencies ####
 
 * [python](https://www.python.org/) 3.0+ (3.6+ recommended)
-    - sk-learn (Version 1.1.2) 
+    - [sklearn](https://scikit-learn.org/stable/whats_new/v1.1.html#version-1-1-2) (Version 1.1.2) 
     - joblib
 * [Cmake](https://cmake.org/)
 * [GCC](https://gcc.gnu.org/) (9.3.3 recommended)
+
+
+### Automatic Installation ###
 
 #### Installation Instructions ####
 
@@ -28,15 +32,8 @@ cd MTB-plus-plus
 
 If the setup script is not applicable to your system (for example, if your system does not support the "module load" environment), follow these manual installation steps:
 
-#### Dependencies ####
-
-* [Cmake](https://cmake.org/)
-* [python](https://www.python.org/) 3.0+ (3.6+ recommended)
-    - sk-learn (Version 1.1.2) 
-    - joblib
-* [GCC](https://gcc.gnu.org/) (9.3.3 recommended)
-
 Run the following in the command line. 
+
 ```bash
 git clone https://github.com/M-Serajian/MTB-plus-plus.git
 cd MTB-plus-plus
