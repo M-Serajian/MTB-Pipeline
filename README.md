@@ -4,7 +4,7 @@ This is the software developed to predict antimicrobial resistance in MTB bacter
 This README contains instructions on how to run the trained classifier or to rebuild the classifier from raw data.  Rebuilding is an advanced use-case.  We expect most users to only run the trained classifier.   This software is maintained by Ali Serajian (ma.serajian@gmail.com).  Please post an Issue onto GitHub if there are any issues with these instructions.
 
 ## Installation ##
-Two methods of installation are considered for MTB++ according to the user's preference. [Automatic Installation](#Autimatic-Installation), and [Manual Installation](#Manual-Installation). In case your system supports the "module load" environment, you can your the Automatic Installation, otherwise, Manual Installation is recommended. 
+Two methods of installation are considered for MTB++ according to the user's preference. [Automatic Installation](https://github.com/M-Serajian/MTB-plus-plus#automatic-installation), and [Manual Installation](https://github.com/M-Serajian/MTB-plus-plus#manual-installation). In case your system supports the "module load" environment, you can your the Automatic Installation, otherwise, Manual Installation is recommended. 
 
 Regardless of the installation method used, the following dependencies should be installed first. 
 
