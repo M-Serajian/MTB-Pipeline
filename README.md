@@ -13,7 +13,7 @@ Regardless of the installation method used, the following dependencies should be
 * [python](https://www.python.org/) 3.0+ (3.6+ recommended)
     - [sklearn](https://scikit-learn.org/stable/whats_new/v1.1.html#version-1-1-2) (Version 1.1.2) 
     - [joblib](https://joblib.readthedocs.io/en/stable/) (Pre-exists on python3+)
-* [Cmake](https://cmake.org/)
+* [Cmake](https://cmake.org/)(tested on v3.26.4)
 * [GCC](https://gcc.gnu.org/) (9.3.3 recommended)
 
 
@@ -79,7 +79,7 @@ Below are the instructions to use the classifier. Here, we assume that the data 
 ### Dependencies for training classifiers from scratch ###
 * python 3.0+ (3.6+ recommended)
     - [sklearn](https://scikit-learn.org/stable/whats_new/v1.1.html#version-1-1-2) (Version 1.1.2) 
-* [Cmake](https://cmake.org/)
+* [Cmake](https://cmake.org/)(tested on v3.26.4)
 * [GCC](https://gcc.gnu.org/) (9.3.3 recommended)
 * [SBWT_Kmer_counters](https://github.com/M-Serajian/SBWT-kmer-counters)
 * [SPAdes](https://github.com/ablab/spades)
