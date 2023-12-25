@@ -11,6 +11,15 @@ import string
 import subprocess
 import csv
 
+# defining colors for print to make debugs and .log files readable
+green_color = "\033[32m"
+blue_color = "\033[34m"
+red_color= "\033[31m"
+# Reset ANSI escape code to default color
+reset_color = "\033[0m"
+
+
+
 # Get the current directory of the script
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -109,10 +118,10 @@ def main():
             
         try:
             result = subprocess.run(command, check=True, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            print("SBWT kmer count was successfully run on input FASTA file")
+            print(f"{green_color}SBWT kmer count was successfully run on input {file_name} FASTA file for {drug}{reset_color}")
         except subprocess.CalledProcessError as e:
             error_message = f"Could not run SBWT Kmer count for {drug} on the data for {input_file_address}, aborted. Error: {e.stderr.strip()}"
-            print(f"\033[91m{error_message}\033[0m")  # Use ANSI escape codes for red color
+            print(f"{red_color}{error_message}{reset_color}")
             os.remove(temporary_file)
             raise  
             #Prediciting AMR by pretrained models
@@ -133,8 +142,6 @@ def main():
         csv_writer.writerow(RF_report)
         
     # ANSI escape code for blue color
-    blue_color = "\033[34m"
-    reset_color = "\033[0m"  # Reset color to default
 
     # Print the message with the output_file_address in blue
     print("The MTB AMR predictions for {}{}{} are stored at {}{}{} directory!".format(blue_color,file_name,reset_color,blue_color, output_file_address, reset_color))
