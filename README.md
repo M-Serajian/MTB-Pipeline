@@ -55,6 +55,7 @@ make -j
 ```bash
 pip3 install scikit-learn==1.1.2
 ```
+Now, MTB++ is ready to be used. 
 
 # Usage
 Mtb++.py can be located at the MTB-plus-plus directory (the root on the cloned directory).
