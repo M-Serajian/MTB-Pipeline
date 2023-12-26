@@ -85,7 +85,7 @@ The primary purpose of MTB++_Report_Consolidation.rb is to process the individua
 
 
 ## Usage
-To use MTB++_Report_Consolidation.rb effectively, make sure to run it after executing MTB++ for the isolates. The script is designed to consolidate individual reports found in the directory specified by the -d or --data-directory flag. It identifies all CSV files in that directory, creating two distinct CSV files that offer a comprehensive overview of the predictions made by MTB++ for each isolate.
+To use MTB++_Report_Consolidation.rb effectively, make sure to run it after executing MTB++ for the isolates. The script is designed to consolidate individual reports found in the directory specified by the **`-d`**  or **`--data-directoryd`** flag. It identifies all CSV files in that directory, creating two distinct CSV files that offer a comprehensive overview of the predictions made by MTB++ for each isolate.
 
 ### How to Run
 
