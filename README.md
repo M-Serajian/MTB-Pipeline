@@ -33,8 +33,7 @@ sh setup.sh
 
 If the setup script is not applicable to your system (for example, if your system does not support the "module load" environment), follow these manual installation steps:
 
-Run the following in the command line. 
-
+1. **Cloning MTB++ getting into the project:**
 ```bash
 git clone https://github.com/M-Serajian/MTB-plus-plus.git
 cd MTB-plus-plus
