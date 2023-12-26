@@ -26,6 +26,7 @@ To simplify the installation process, the provided `setup.sh` script automates t
 ```bash
 git clone https://github.com/M-Serajian/MTB-plus-plus.git
 cd MTB-plus-plus
+sh setup.sh
 ```
 
 ### Manual Installation ###
