@@ -118,7 +118,8 @@ def main():
             
         try:
             result = subprocess.run(command, check=True, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            print(f"{green_color}SBWT kmer count was successfully run on input {file_name} FASTA file for {drug}{reset_color}")
+            #For devug purpose
+            print(f"{green_color}SBWT kmer count was successfully run on input {file_name} for {drug}{reset_color}")
         except subprocess.CalledProcessError as e:
             error_message = f"Could not run SBWT Kmer count for {drug} on the data for {input_file_address}, aborted. Error: {e.stderr.strip()}"
             print(f"{red_color}{error_message}{reset_color}")

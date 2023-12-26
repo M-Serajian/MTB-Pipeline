@@ -77,7 +77,7 @@ cmake -B $SBWT_build_directory -S $SBWT_directory -DCMAKE_BUILD_ZLIB=1
 
 make -C $SBWT_build_directory -j
 
-make -C $SBWT_kmer_counter_directory counters -j
+make -C $SBWT_kmer_counter_directory -j
 
 
 
