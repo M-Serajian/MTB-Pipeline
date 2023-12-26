@@ -23,7 +23,7 @@ Regardless of the installation method used, the following dependencies should be
 
 To simplify the installation process, the provided `setup.sh` script automates the setup by utilizing the "module load" environment. The script loads essential modules such as GCC and CMake (they need to be installed), compiles SBWT, and verifies the version of Scikit-learn. To use the script, follow these steps:
 
-1. **Cloning MTB++ installing it:**
+1. **Cloning MTB++ and installing it:**
 ```bash
 git clone https://github.com/M-Serajian/MTB-plus-plus.git
 cd MTB-plus-plus
