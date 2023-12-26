@@ -106,7 +106,7 @@ def main():
         #Runing the SBWK Kmer Counter to create the color matrix
 
         #Address to the SBWK Kmer Counter executable
-        address_to_kmer_counters_executable= os.path.join(project_root,"MTB-plus-plus",'src',"SBWT-kmer-counters","counters") 
+        address_to_kmer_counters_executable= os.path.join(project_root,"MTB-plus-plus",'src',"SBWT-kmer-counters","single_genome_counters") 
 
         command= address_to_kmer_counters_executable+ " "+ SBWT_index + " " + input_file_address+">"+temporary_file
         #Runing the command
