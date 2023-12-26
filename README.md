@@ -70,6 +70,28 @@ python Mtb++.py -f FASTAfile -o Output.csv
 python Mtb++.py -f data/sample_genomes/ERR8665561.fasta -o ERR8665561.csv
 ```
 
+
+# MTB++ Report Consolidation #
+
+If MTB++ is utilized for a substantial number of isolates, individual .csv reports are generated for each isolate in the directory specified by the **`-o`** flag for the "Mtb++.py" script. To streamline and unify this data into comprehensive reports, the **MTB++_Report_Consolidation.rb** script has been developed.
+
+## Purpose
+
+The primary purpose of MTB++_Report_Consolidation.rb is to process the individual CSV files and create two finalized reports:
+
+1. **Logistic Regression Prediction Report:** This report consolidates predictions made by the Logistic Regression classifier for each genome.
+
+2. **Random Forest Prediction Report:** This report aggregates predictions based on the Random Forest classifier for each genome.
+
+## Usage
+
+To use MTB++_Report_Consolidation.rb, ensure that it is executed after running MTB++ for the isolates. The script takes care of consolidating the individual reports into two distinct CSV files, providing a comprehensive overview of the predictions.
+
+## How to Run
+
+```bash
+ruby MTB++_Report_Consolidation.rb -d [DATA_DIRECTORY] -o [OUTPUT_DIRECTORY]
+
 ### Citation ###
 This software is under GNU license.  If you use the software please cite the following paper:   
 
