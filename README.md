@@ -83,21 +83,27 @@ The primary purpose of MTB++_Report_Consolidation.rb is to process the individua
 
 2. **Random Forest Prediction Report:** This report aggregates predictions based on the Random Forest classifier for each genome.
 
+
 ## Usage
+To use MTB++_Report_Consolidation.rb effectively, make sure to run it after executing MTB++ for the isolates. The script is designed to consolidate individual reports found in the directory specified by the -d or --data-directory flag. It identifies all CSV files in that directory, creating two distinct CSV files that offer a comprehensive overview of the predictions made by MTB++ for each isolate.
 
-To use MTB++_Report_Consolidation.rb, ensure that it is executed after running MTB++ for the isolates. The script takes care of consolidating the individual reports into two distinct CSV files, providing a comprehensive overview of the predictions.
-
-## How to Run
+### How to Run
 
 ```bash
 ruby MTB++_Report_Consolidation.rb -d [DATA_DIRECTORY] -o [OUTPUT_DIRECTORY]
+```
 
-### Citation ###
+- **-d or --data-directory:** Specify the directory where all the individual MTB++ reports (CSV files) for each isolate are stored. This parameter is mandatory.
+
+- **-o or --output-directory:** (Optional) Specify the directory where you want the unified reports for Logistic Regression and Random Forest predictions to be saved. If not provided, the default is the current directory.
+
+
+## Citation ##
 This software is under GNU license.  If you use the software please cite the following paper:   
 
 
 
-## Classifying Data using MTB++ ##
+# Classifying Data using MTB++ #
 Below are the instructions to use the classifier. Here, we assume that the data to be classified is available as a set of paired-end sequence reads.  In our example, we will have `reads1.fq` and `reads2.fq`
 
 ### Dependencies for training classifiers from scratch ###
