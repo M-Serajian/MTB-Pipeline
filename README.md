@@ -3,7 +3,7 @@
 
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-    <img src="https://github.com/M-Serajian/MTB-plus-plus/blob/main/images/Pipeline_transparent_backgrounds.png" alt="MTB++ Image" style="width: 100%;">
+    <img src="https://github.com/M-Serajian/MTB-plus-plus/blob/main/images/MTB%2B%2B_transparent_background.png" alt="MTB++ Image" style="width: 100%;">
   </div>
 </div>
 
@@ -129,7 +129,7 @@ Below are the instructions to use the classifier. Here, we assume that the data 
 The following image demonstrates the data n analysis pipeline if MTB++. 
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-    <img src="https://github.com/M-Serajian/MTB-plus-plus/blob/main/images/Pipeline.png" alt="MTB++ Image" style="width: 100%;">
+    <img src="https://github.com/M-Serajian/MTB-plus-plus/blob/main/images/Pipeline_transparent_backgrounds.png" alt="MTB++ Image" style="width: 100%;">
   </div>
 </div>
 
