@@ -10,6 +10,7 @@
     </td>
   </tr>
 </table>
+
 ## Installation ##
 Two methods of installation are considered for MTB++ according to the user's preference. [Automatic Installation](https://github.com/M-Serajian/MTB-plus-plus#automatic-installation), and [Manual Installation](https://github.com/M-Serajian/MTB-plus-plus#manual-installation). In case your system supports the "module load" environment, you can your the Automatic Installation, otherwise, Manual Installation is recommended. 
 
