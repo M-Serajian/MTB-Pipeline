@@ -3,7 +3,7 @@
 <table style="border-collapse: collapse; border: none;">
   <tr>
     <td style="padding: 0;">
-      <img src="https://github.com/M-Serajian/MTB-plus-plus/raw/main/images/MTB%2B%2B.png" alt="MTB++ Image" width="1500">
+      <img src="https://github.com/M-Serajian/MTB-plus-plus/raw/main/images/MTB%2B%2B.png" alt="MTB++ Image" width="2500">
     </td>
     <td style="padding: 1px;">
       This is the software developed to predict antimicrobial resistance in MTB bacteria using machine learning for 13 groups of antibiotics including Amikacin, Bedaquiline, Clofazimine, Delamanid, Ethambutol, Ethionamide, Isoniazid, Kanamycin, Levofloxacin, Linezolid, Moxifloxacin, Rifampicin, Rifabutin; and 3 antibiotic families including Rifampin, Aminoglycosides, Fluoroquinolone. This README contains instructions on how to run the trained classifier or to rebuild the classifier from raw data. 
