@@ -3,7 +3,7 @@
 
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-    <img src="https://github.com/M-Serajian/MTB-plus-plus/blob/main/images/MTB%2B%2B_black_background.png" alt="MTB++ Image" style="width: 100%;">
+    <img src="https://github.com/M-Serajian/MTB-plus-plus/blob/main/images/MTB%2B%2B_transparent_background.png" alt="MTB++ Image" style="width: 100%;">
   </div>
 </div>
 
