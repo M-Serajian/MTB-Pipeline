@@ -125,6 +125,7 @@ Below are the instructions to use the classifier. Here, we assume that the data 
 * [SPAdes](https://github.com/ablab/spades)
 * [enaBrowserTools](https://github.com/M-Serajian/enaBrowserTools/blob/c9ed1a39510bb976079177f2726f0a0ec9cf1275/Projects.txt)
 
+#### Pipeline
 The following image demonstrates the data n analysis pipeline if MTB++. 
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
