@@ -7,6 +7,7 @@
   </div>
 </div>
 
+
 ## Introduction
 This is the software developed to predict antimicrobial resistance in MTB bacteria using machine learning for 13 groups of antibiotics including Amikacin, Bedaquiline, Clofazimine, Delamanid, Ethambutol, Ethionamide, Isoniazid, Kanamycin, Levofloxacin, Linezolid, Moxifloxacin, Rifampicin, Rifabutin; and 3 antibiotic families including Rifampin, Aminoglycosides, Fluoroquinolone. This README contains instructions on how to run the trained classifier or to rebuild the classifier from raw data.
 
@@ -123,6 +124,13 @@ Below are the instructions to use the classifier. Here, we assume that the data 
 * [SBWT_Kmer_counters](https://github.com/M-Serajian/SBWT-kmer-counters)
 * [SPAdes](https://github.com/ablab/spades)
 * [enaBrowserTools](https://github.com/M-Serajian/enaBrowserTools/blob/c9ed1a39510bb976079177f2726f0a0ec9cf1275/Projects.txt)
+
+The following image demonstrates the data n analysis pipeline if MTB++. 
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1;">
+    <img src="https://github.com/M-Serajian/MTB-plus-plus/blob/main/images/Pipeline.png" alt="MTB++ Image" style="width: 100%;">
+  </div>
+</div>
 
 ### Assemble the data into contigs ###
 Use SPAdes to assemble the data
