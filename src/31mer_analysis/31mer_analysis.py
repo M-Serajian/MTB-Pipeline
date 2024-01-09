@@ -57,7 +57,9 @@ reset_color = "\033[0m"
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Get the parent directory (project root) of the current directory
-project_root = os.path.dirname(current_dir)
+parent_dir = os.path.dirname(current_dir)
+parent_dir = os.path.dirname(parent_dir)
+project_root = os.path.dirname(parent_dir)
 
 # Add the project root directory to PYTHONPATH
 sys.path.append(project_root)
@@ -192,7 +194,8 @@ def main():
 
         #Address to the SBWK index for each specific drug
         #SBWT_index = os.path.join(current_dir, "data", "SBWT_indexes","{}.sbwt".format(drug))
-        SBWT_index = os.path.join(project_root,"MTB-plus-plus","data", "SBWT_indexes","{}.sbwt".format(drug))
+        #SBWT_index = os.path.join(project_root,"MTB-plus-plus","data", "SBWT_indexes","{}.sbwt".format(drug))
+        SBWT_index = os.path.join("MTB-plus-plus","data", "SBWT_indexes","{}.sbwt".format(drug))
         
         #Temporary random file names that will be removed later on
         #temporary_file=current_dir+"/temp/"+prefix_temporary_files+"_"+drug+".txt"
