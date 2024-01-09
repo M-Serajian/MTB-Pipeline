@@ -172,7 +172,7 @@ def main():
         
         # Checking if the number of genome IDs are not zero since SBWT will crush if no genome IDs are present in it
         if len(drug_column) == 0:
-            print(f"{yellow_color}There are ZERO genome IDs for {drug}:{reset_color}",flush=True)
+            print(f"{yellow_color}There are ZERO genome IDs for {drug}{reset_color}",flush=True)
             mid_df=pd.DataFrame([["_","0 genome IDs exist"]], columns=['{} top 31-mer'.format(drug),\
                                                 '{} Kmer occurance (out of {}) '.format(drug,len(drug_column))])
             dfs.append(mid_df)
