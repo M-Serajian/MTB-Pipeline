@@ -5,13 +5,13 @@ use warnings;
 # Process arguments to check for help flag
 foreach my $arg (@ARGV) {
     if ($arg eq '-h' || $arg eq '--help') {
-        system("python src/31mer_analysis/31mer_analysis.py/31mer_analysis.py -h");
+        system("python /src/31mer_analysis/31mer_analysis.py -h");
         exit 0;
     }
 }
 
 # Construct the command to call the Python script with the original arguments
-my $command = "python src/31mer_analysis/31mer_analysis.py/31mer_analysis.py " . join(' ', @ARGV);
+my $command = "python src/31mer_analysis/31mer_analysis.py " . join(' ', @ARGV);
 
 # Execute the command and show output
 my $exit_status = system($command);
