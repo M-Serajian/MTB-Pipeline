@@ -11,6 +11,7 @@
 
 date;
 
+export OMP_NUM_THREADS=16
 ml python
 ml perl
 perl 31mer_analysis.pl \
