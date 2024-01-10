@@ -24,3 +24,4 @@ TestResults.xml
 __pycache__/
 resistant_genomes.csv
 resistant_genomes_31mer_analysis.csv
+job_array.sh
