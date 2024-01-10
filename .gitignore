@@ -25,3 +25,5 @@ __pycache__/
 resistant_genomes.csv
 resistant_genomes_31mer_analysis.csv
 job_array.sh
+resistant_genomes_31mer_analysis_single_thread.csv
+job_array.sh
