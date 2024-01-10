@@ -1,17 +1,33 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use Term::ANSIColor;
+# Now, with color
+my $green_color = color('green');
+my $reset_color = color('reset');
+
 
 # Process arguments to check for help flag
 foreach my $arg (@ARGV) {
 
     if ($arg eq '-h' || $arg eq '--help') {
 
-        system("python /src/31mer_analysis/31mer_analysis_multi_thread.py -h");
+        system("python src/31mer_analysis/31mer_analysis_multi_thread.py -h");
 
         exit 0;
     }
 }
+
+
+# Detect number of cores in a Linux environment
+my $num_cores = `grep -c ^processor /proc/cpuinfo`;
+
+# Trim the newline from the output
+chomp($num_cores);
+
+
+print "${green_color}The number of threads are: ${num_cores}${reset_color}\n";
+
 
 # Construct the command to call the Python script with the original arguments
 my $command = "python src/31mer_analysis/31mer_analysis_multi_thread.py " . join(' ', @ARGV);

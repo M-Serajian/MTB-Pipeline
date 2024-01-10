@@ -24,7 +24,6 @@ reset_color = "\033[0m"
 
 
 num_cores = os.cpu_count() or 1
-print(f"{green_color} The number of threads are : {num_cores} {reset_color}")
 
 
 # Get the current directory of the script

@@ -112,6 +112,24 @@ ruby MTB++_Report_Consolidation.rb -d [DATA_DIRECTORY] -o [OUTPUT_DIRECTORY]
 
 
 
+# MTB++ 31mer Analysis Multi-thread Tool#
+
+## Purpose
+This code reports the number of occurrences of the 31-mers associated with each class of antibiotic.
+
+## Usage
+
+- `-h, --help HELP`: Show the help message and exit.
+- `-i, --I INPUT_FILE`: (required) Input `resistant_genome_IDs.csv`, the header of the CSV file should be the antibiotics (Amikacin, ....).
+- `-o, --O OUTPUT_DIR`: (required) The output directory where the results will be saved.
+- `-b, --B BASE_DIRECTORY`: (required) The directory including the FASTA files.
+- `-f, --F FASTA_EXTENSION`: (required) The extensions of the Fasta files. The valid FASTA extensions are: `fasta`, `fa`, `fas`, `fna`, `ffn`.
+- `-t, --temporary-directory TEMPORARY_DIRECTORY`: (required) This is a directory of Temporary files. Depending on the number of Genomes to be Processed, the free space to increase.
+
+### How to Run
+```bash
+perl 31mer_analysis -i PATH/to/resistant_genome_IDs.csv -o PATH/to/output_dir -b Base_directory_of_FASTA_Files -f FASTA_extension -t Temporary_directory
+```
 
 # Classifying Data using MTB++ #
 Below are the instructions to use the classifier. Here, we assume that the data to be classified is available as a set of paired-end sequence reads.  In our example, we will have `reads1.fq` and `reads2.fq`
