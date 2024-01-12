@@ -1,0 +1,1 @@
+These FASTA files include the top 31mers that have non-zero coefficients in LR unioned with the Top Kmers used in RF that are organized based on gini impurity (Sudden drop of feature importance)
