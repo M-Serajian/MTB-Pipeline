@@ -127,7 +127,7 @@ def process_task(drug):
     # Check if genome IDs are present
     if len(drug_column) == 0:
         print(f"{yellow_color}There are ZERO genome IDs for {drug}{reset_color}")
-        mid_df = pd.DataFrame([["_", "0 genome IDs exist"]], columns=[f'{drug} top 31-mer', f'{drug} Kmer occurance (out of {len(drug_column)})'])
+        mid_df = pd.DataFrame([["_", "0 genome IDs exist"]], columns=[f'{drug} top 31-mer', f'{drug} Kmer occurrence (out of {len(drug_column)})'])
         print(f"{yellow_color}SBWT multi_genome_counters will not be executed for {drug}{reset_color}", flush=True)
 
     else:
@@ -161,9 +161,9 @@ def process_task(drug):
         # Final processing and DataFrame creation
         pairs_list = [pair for pair in pairs_list if "$" not in pair[0] and len(pair[0]) != 0]
         sorted_list = sorted(pairs_list, key=lambda x: x[1], reverse=True)
-        mid_df = pd.DataFrame(sorted_list, columns=[f'{drug} top 31-mer', f'{drug} Kmer occurance (out of {len(drug_column)})'])
+        mid_df = pd.DataFrame(sorted_list, columns=[f'{drug} top 31-mer', f'{drug} Kmer occurrence (out of {len(drug_column)})'])
         
-        # removing the files used in the case of having non zero amount of genomes in the file
+        # Removing the files used in the case of having non-zero amount of genomes in the file
         os.remove(temporary_genome_list_file)
         os.remove(temporary_color_matrix_file)
 
