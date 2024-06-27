@@ -1,7 +1,5 @@
 This code is designed to train a classifier based on the data processed in the previous [step](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Kmer_Select). Two types of basic classifiers are designed, Logistic regression (LR) and Random Forest (RF) are trained. The saved models will be further used as the input to the main MTB++ software
 ```bash
-Usage: 
-  -h,--help  show this help message and exit
 Usage: src/classifier/classifier.py [options]
 
 Options:
