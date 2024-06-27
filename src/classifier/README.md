@@ -2,19 +2,27 @@ This code is designed to train a classifier based on the data processed in the p
 ```bash
 Usage: 
   -h,--help  show this help message and exit
-  --antibiotic_drug_name "Penicillin"  # Specify the drug name (required)
-  --total_number_of_features "100"     # Total number of features for the model (required)
-  --feature_matrix_directory "/path/to/feature_matrices"  # Directory containing feature matrices (required)
-  --results_directory "/path/to/results"  # Directory to save the results (required)
-  --cross_validation_folds 5            # Number of folds for cross-validation (required)
-  --cross_validation_index 0            # Index of the fold used for testing (required)
-  --cross_validation_indexes_directory "/path/to/cv_indexes"  # Directory containing indexes for cross-validation (required)
-  --phenotypes_directory "/path/to/phenotypes"  # Directory of the CSV file containing antibiotic drug resistance phenotypes (required)
-  --alpha_lasso 1.0                     # Alpha parameter for Lasso regularization in logistic regression (optional, default: 1.0)
-  --logistic_regression_lasso_threshold 1000  # Feature threshold for applying Lasso (optional, default: 1000)
-  --random_forest_trees 150             # Number of trees in the random forest model (optional, default: 150)
-  --maximum_itteration 2500             # Maximum number of iterations for the model (optional, default: 2500)
-  --logistic_regression                 # Flag to select logistic regression model (optional)
-  --random_forest                       # Flag to select random forest model (optional)
-  --linear_regression                   # Flag to select linear regression model (optional)
+Usage: src/classifier/classifier.py [options]
+
+Options:
+  -h, --help        Show this help message and exit
+
+Required:
+  --antibiotic_drug_name ANTIBIOTIC_DRUG_NAME             Specify the drug name
+  --total_number_of_features NUMBER            Total number of features for the model
+  --feature_matrix_directory PATH              Directory containing feature matrices
+  --results_directory PATH                     Directory to save the results
+  --cross_validation_folds NUMBER              Number of folds for cross-validation
+  --cross_validation_index INDEX               Index of the fold used for testing
+  --cross_validation_indexes_directory PATH    Directory containing indexes for cross-validation
+  --phenotypes_directory PATH                  Directory of the CSV file containing antibiotic drug resistance phenotypes
+
+Optional:
+  --alpha_lasso VALUE                          Alpha parameter for Lasso regularization (default: 1.0)
+  --logistic_regression_lasso_threshold NUMBER Feature threshold for applying Lasso (default: 1000)
+  --random_forest_trees NUMBER                 Number of trees in the random forest model (default: 150)
+  --maximum_iteration NUMBER                   Maximum number of iterations for the model (default: 2500)
+  --logistic_regression                        Flag to select logistic regression model
+  --random_forest                              Flag to select random forest model
+  --linear_regression                          Flag to select linear regression model
 ```
