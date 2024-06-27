@@ -32,7 +32,7 @@ def parse_arguments():
     parser.add_argument('--alpha_lasso', type=float, default=1.0, help="Alpha lasso parameter for logistic regression (default: 1.0).")
     parser.add_argument('--logistic_regression_lasso_threshold', type=int, default=1000, help="If the number of features used to train the logistic regression model is more than this value, lasso shrinkage will be used (default: 1000).")
     parser.add_argument('--random_forest_trees', type=int, default=150, help="Number of random forest trees (default: 150).")
-    parser.add_argument('--maximum_itteration', type=int, default=2500, help="Maximun number of itterations for the machine learning.")
+    parser.add_argument('--maximum_iteration', type=int, default=2500, help="Maximun number of itterations for the machine learning.")
     parser.add_argument('--phenotypes_directory', type=str, required=True, help="The directory of the csv file of the antibiotic drug resistance phenotypes.")
     parser.add_argument('--logistic_regression', action='store_true', help="Flag to use logistic regression model.")
     parser.add_argument('--random_forest', action='store_true', help="Flag to use random forest model.")
@@ -232,10 +232,10 @@ def main():
     for i in list_kmers :
 
       if ( args.logistic_regression_lasso_threshold<i):
-        model=LogisticRegression(penalty='l1', solver='liblinear', max_iter=args.maximum_itteration,C=1/args.logistic_regression_lasso_threshold)
+        model=LogisticRegression(penalty='l1', solver='liblinear', max_iter=args.maximum_iteration,C=1/args.logistic_regression_lasso_threshold)
         model_name="Logistic Regression Lasso"
       else: 
-        model=LogisticRegression(max_iter=args.maximum_itteration)
+        model=LogisticRegression(max_iter=args.maximum_iteration)
         model_name="Logistic Regression"
       
       print("Training {} model with {} Kmers".format(model_name,i),flush=True) 
