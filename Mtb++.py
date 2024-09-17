@@ -96,17 +96,17 @@ def main():
     for drug in drug_names:
         #Address to the SBWK index for each specific drug
         #SBWT_index = os.path.join(current_dir, "data", "SBWT_indexes","{}.sbwt".format(drug))
-        SBWT_index = os.path.join(project_root,"MTB-plus-plus","data", "SBWT_indexes","{}.sbwt".format(drug))
+        SBWT_index = os.path.join(project_root,"MTB-Pipeline","data", "SBWT_indexes","{}.sbwt".format(drug))
         
         #Temporary random file names that will be removed later on
         #temporary_file=current_dir+"/temp/"+prefix_temporary_files+"_"+drug+".txt"
         #temporary_file = os.path.join(current_dir, "temp", prefix_temporary_files+"_"+drug+".txt")
-        temporary_file = os.path.join(project_root,"MTB-plus-plus","temp", prefix_temporary_files+"_"+drug+".txt")
+        temporary_file = os.path.join(project_root,"MTB-Pipeline","temp", prefix_temporary_files+"_"+drug+".txt")
 
         #Runing the SBWK Kmer Counter to create the color matrix
 
         #Address to the SBWK Kmer Counter executable
-        address_to_kmer_counters_executable= os.path.join(project_root,"MTB-plus-plus",'src',"SBWT-kmer-counters","single_genome_counters") 
+        address_to_kmer_counters_executable= os.path.join(project_root,"MTB-Pipeline",'src',"SBWT-kmer-counters","single_genome_counters") 
 
         command= address_to_kmer_counters_executable+ " "+ SBWT_index + " " + input_file_address+">"+temporary_file
         #Runing the command
