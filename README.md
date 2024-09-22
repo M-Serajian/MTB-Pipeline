@@ -5,14 +5,14 @@
 ## Introduction
 MTB++ is a software developed to predict antimicrobial resistance in MTB bacteria using machine learning for 13 groups of antibiotics including Amikacin, Bedaquiline, Clofazimine, Delamanid, Ethambutol, Ethionamide, Isoniazid, Kanamycin, Levofloxacin, Linezolid, Moxifloxacin, Rifampicin, Rifabutin; and 3 antibiotic families including Rifampin, Aminoglycosides, Fluoroquinolone. This README contains instructions on how to run the trained classifier or to rebuild the classifier from raw data.
 
-[Rebuilding](https://github.com/M-Serajian/MTB-plus-plus#classifying-data-using-mtb) is an advanced use case.  We expect most users to only run the trained classifier.   This software is maintained by Ali Serajian (ma.serajian@gmail.com).  Please post an Issue on GitHub if there are any issues with these instructions.
+[Rebuilding](https://github.com/M-Serajian/MTB-Pipeline#classifying-data-using-mtb) is an advanced use case.  We expect most users to only run the trained classifier.   This software is maintained by Ali Serajian (ma.serajian@gmail.com).  Please post an Issue on GitHub if there are any issues with these instructions.
 
 ## Citation ##
 This software is under GNU license.  If you use the software please cite the following paper: [Scalable de novo classification of antibiotic resistance of Mycobacterium tuberculosis](https://academic.oup.com/bioinformatics/article/40/Supplement_1/i39/7700900)
 
 
 ## Installation ##
-Two methods of installation are considered for MTB++ according to the user's preference. [Automatic Installation](https://github.com/M-Serajian/MTB-plus-plus#automatic-installation), and [Manual Installation](https://github.com/M-Serajian/MTB-plus-plus#manual-installation). In case your system supports the "module load" environment, you can use the Automatic Installation, otherwise, Manual Installation is recommended. 
+Two methods of installation are considered for MTB++ according to the user's preference. [Automatic Installation](https://github.com/M-Serajian/MTB-Pipeline#automatic-installation), and [Manual Installation](https://github.com/M-Serajian/MTB-Pipeline#manual-installation). In case your system supports the "module load" environment, you can use the Automatic Installation, otherwise, Manual Installation is recommended. 
 
 Regardless of the installation method used, the following dependencies should be installed first. 
 
@@ -33,8 +33,8 @@ To simplify the installation process, the provided `setup.sh` script automates t
 
 1. **Cloning MTB++ and installing it:**
 ```bash
-git clone https://github.com/M-Serajian/MTB-plus-plus.git
-cd MTB-plus-plus
+git clone https://github.com/M-Serajian/MTB-Pipeline.git
+cd MTB-Pipeline
 sh setup.sh
 ```
 
@@ -44,8 +44,8 @@ If the setup script is not applicable to your system (for example, if your syste
 
 1. **Cloning MTB++ getting into the project:**
 ```bash
-git clone https://github.com/M-Serajian/MTB-plus-plus.git
-cd MTB-plus-plus
+git clone https://github.com/M-Serajian/MTB-Pipeline.git
+cd MTB-Pipeline
 ```
 2. **Compiling and Installing SBWT_Kmer_Counters:**
     Compile [SBWT_Kmer_Counters](https://github.com/M-Serajian/SBWT-kmer-counters) as follows:
@@ -67,7 +67,7 @@ pip3 install scikit-learn==1.1.2
 Now, MTB++ is ready to be used. 
 
 # Usage
-Mtb++.py can be located at the MTB-plus-plus directory (the root on the cloned directory).
+Mtb++.py can be located at the MTB-Pipeline directory (the root on the cloned directory).
  
 ```bash
 python Mtb++.py -f FASTAfile -o Output.csv
@@ -142,7 +142,7 @@ Below are the instructions to use the classifier. Here, we assume that the data 
 The following image demonstrates the data analysis pipeline in MTB++ model developement. 
 <div style="display: flex; align-items: center;">
   <div style="flex: 1;">
-    <img src="https://github.com/M-Serajian/MTB-plus-plus/blob/main/images/Pipeline_transparent_backgrounds.png" alt="MTB++ Image" style="width: 100%;">
+    <img src="https://github.com/M-Serajian/MTB-Pipeline/blob/main/images/Pipeline_transparent_backgrounds.png" alt="MTB++ Image" style="width: 100%;">
   </div>
 </div>
 
@@ -171,7 +171,7 @@ Use spades to assemble the data
 spades.py -r1 reads1.fastq -r2 reads2.fastq
 ```
 ### Extract and match phenotypic data ### 
-Extract the phenotypes from the ENA data and match the identifier numbers [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Extract%20Phenotypes)
+Extract the phenotypes from the ENA data and match the identifier numbers [here](https://github.com/M-Serajian/MTB-Pipeline/tree/main/src/Extract%20Phenotypes)
 
 ```bash
 command line here
@@ -194,13 +194,13 @@ max_filter_kmers_occurring_more_than=3000
 
 mkdir -p $Npy_files_address
 
-python projects/MTB-plus-plus/src/Ascii_to_Feature_Matrix/Ascii_to_Matrix.py $file_number $Number_of_Samples \
+python projects/MTB-Pipeline/src/Ascii_to_Feature_Matrix/Ascii_to_Matrix.py $file_number $Number_of_Samples \
           $Color_matrix_address $Npy_files_address\
           $Number_of_kmers_in_file \
           $min_filter_kmers_occurring_less_than\
           $max_filter_kmers_occurring_more_than
 ```
-These commands are also available in a script. The output should be `.npy` files that we will use in the next step.  See [ascii_to_feature.sh](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Ascii_to_Feature_Matrix).
+These commands are also available in a script. The output should be `.npy` files that we will use in the next step.  See [ascii_to_feature.sh](https://github.com/M-Serajian/MTB-Pipeline/tree/main/src/Ascii_to_Feature_Matrix).
 
 
 ### Feature selection. ### 
@@ -210,16 +210,16 @@ Create five folds of the data to be further used for Chi-squared test and classi
 ./mypython.py somthing.npy > output
 ```
 
-Next, we perform Chi-squared test to rank the features based on their significance [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Chi-Square-Kmer-Ranking).
+Next, we perform Chi-squared test to rank the features based on their significance [here](https://github.com/M-Serajian/MTB-Pipeline/tree/main/src/Chi-Square-Kmer-Ranking).
  ```bash
 ./mypython.py somthing.npy > output
 ```
-Lastly, we select the top features for each resistance class for training the classifiers [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Kmer_Select).
+Lastly, we select the top features for each resistance class for training the classifiers [here](https://github.com/M-Serajian/MTB-Pipeline/tree/main/src/Kmer_Select).
 ```bash
 ./mypython.py somthing.npy > output
 ```
 ### Train the Classifiers ### 
-The last step is to train classifiers, both the Logistic Regression and Random Forest classifiers. [here](https://github.com/M-Serajian/MTB-plus-plus/tree/main/src/Classifier).
+The last step is to train classifiers, both the Logistic Regression and Random Forest classifiers. [here](https://github.com/M-Serajian/MTB-Pipeline/tree/main/src/Classifier).
 
 ```bash
 Usage: src/classifier/classifier.py [options]
