@@ -28,3 +28,4 @@ job_array.sh
 resistant_genomes_31mer_analysis_single_thread.csv
 job_array.sh
 job_array.sh
+run/
