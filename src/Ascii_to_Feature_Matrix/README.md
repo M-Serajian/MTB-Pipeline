@@ -8,7 +8,8 @@ During this process, k-mers that appear in fewer samples than a minimum threshol
 - The SBWT input file must end with a newline character (`\n`) to ensure accurate line counting.
 - Use `awk 'END{print NR}' color_matrix.txt` for reliable line count.
 - The number of CPUs or parallel tasks must match `--total-files`.
-- Each CPU/process must be assigned exactly one file index (`--file-index`), and `--total-files` must be equal to the number of CPUs used.
+- Each CPU/process must be assigned exactly one file index (`--file-index`).
+- Each processor will generate exactly one `.npy` file, which is why the number of CPUs and `--total-files` must be the same.
 - Each process must have enough memory to load and process its chunk of the binary matrix.
 
 ---
@@ -21,16 +22,24 @@ Each line in the SBWT color matrix should look like:
 
 ---
 
-## Arguments
+## Usage
 
---file-index (-f): 1-based index of the chunk assigned to this process  
---num-samples (-n): Total number of samples (FASTA files)  
---color-matrix (-c): Path to the SBWT color matrix file  
---output-dir (-o): Directory to save the output `.npy` file  
---total-lines (-tl): Total number of lines in the color matrix (use `wc -l`)  
---total-files (-tf): Total number of chunks / CPUs (must match number of parallel jobs)  
---min-occurrence (-min): Minimum number of samples a k-mer must appear in  
---max-occurrence (-max): Maximum number of samples a k-mer can appear in
+```bash
+Usage: src/ascii_to_matrix/Ascii_to_Matrix.py [options]
+
+Options:
+  -h, --help                      Show this help message and exit
+
+Required:
+  --file-index FILE_INDEX        1-based index of the chunk assigned to this process
+  --num-samples NUM_SAMPLES      Total number of samples (FASTA files)
+  --color-matrix FILE_PATH       Path to the SBWT color matrix file
+  --output-dir DIRECTORY         Directory to save the output `.npy` file
+  --total-lines TOTAL_LINES      Total number of lines in the color matrix (use `wc -l`)
+  --total-files TOTAL_FILES      Total number of chunks / CPUs
+  --min-occurrence MIN           Minimum number of samples a k-mer must appear in
+  --max-occurrence MAX           Maximum number of samples a k-mer can appear in
+```
 
 ---
 
@@ -38,7 +47,12 @@ Each line in the SBWT color matrix should look like:
 
 ```bash
 python src/ascii_to_matrix/Ascii_to_Matrix.py \
-  -f 3 -n 6224 -c /path/to/color_matrix.txt \
-  -o /path/to/output/ -tl 700000000 -tf 100 \
-  -min 5 -max 6500
+  --file-index 3 \
+  --num-samples 6224 \
+  --color-matrix /path/to/color_matrix.txt \
+  --output-dir /path/to/output/ \
+  --total-lines 700000000 \
+  --total-files 100 \
+  --min-occurrence 5 \
+  --max-occurrence 6500
 ```
