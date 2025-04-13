@@ -41,18 +41,3 @@ Required:
   --max-occurrence MAX           Maximum number of samples a k-mer can appear in
 ```
 
----
-
-## Example
-
-```bash
-python src/ascii_to_matrix/Ascii_to_Matrix.py \
-  --file-index 3 \
-  --num-samples 6224 \
-  --color-matrix /path/to/color_matrix.txt \
-  --output-dir /path/to/output/ \
-  --total-lines 700000000 \
-  --total-files 100 \
-  --min-occurrence 5 \
-  --max-occurrence 6500
-```
