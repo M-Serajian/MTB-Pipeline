@@ -2,7 +2,7 @@
 import time
 import numpy as np
 import argparse
-
+import os
 
 #!/usr/bin/env python
 import argparse
@@ -198,7 +198,8 @@ def main():
     binary_matrix = np.array(binary_matrix)
     print(f"[INFO] Final matrix shape for file index {file_index}: {binary_matrix.shape}", flush=True)
 
-    output_file_path = f"{output_directory}counts_file{file_index}.npy"
+    output_file_path = os.path.join(output_directory, f"chunck{file_index}.npy")
+
     np.save(output_file_path, binary_matrix)
 
     print(f"[SUCCESS] Saved binary matrix to: {output_file_path}", flush=True)
