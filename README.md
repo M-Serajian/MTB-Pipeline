@@ -170,12 +170,6 @@ Use spades to assemble the data
 ```bash
 spades.py -r1 reads1.fastq -r2 reads2.fastq
 ```
-### Extract and match phenotypic data ### 
-Extract the phenotypes from the ENA data and match the identifier numbers [here](https://github.com/M-Serajian/MTB-Pipeline/tree/main/src/Extract%20Phenotypes)
-
-```bash
-command line here
-```
 
 ### Create feature matrix ### 
 
@@ -222,22 +216,6 @@ Required:
 
 ---
 
-
-### Feature selection. ### 
-
-Create five folds of the data to be further used for Chi-squared test and classification.
-```bash
-./mypython.py somthing.npy > output
-```
-
-Next, we perform Chi-squared test to rank the features based on their significance [here](https://github.com/M-Serajian/MTB-Pipeline/tree/main/src/Chi-Square-Kmer-Ranking).
- ```bash
-./mypython.py somthing.npy > output
-```
-Lastly, we select the top features for each resistance class for training the classifiers [here](https://github.com/M-Serajian/MTB-Pipeline/tree/main/src/Kmer_Select).
-```bash
-./mypython.py somthing.npy > output
-```
 ### Train the Classifiers ### 
 The last step is to train classifiers, both the Logistic Regression and Random Forest classifiers. [here](https://github.com/M-Serajian/MTB-Pipeline/tree/main/src/Classifier).
 
